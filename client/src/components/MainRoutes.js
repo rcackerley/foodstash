@@ -9,7 +9,7 @@ import RecipeScreen from './RecipeScreen';
 
 // import Category from './Category';
 
-let Router = () =>
+let MainRoutes = () =>
     <div>
         <Switch>
             <Route path="/" component={HomeScreen} />
@@ -21,4 +21,4 @@ let Router = () =>
         </Switch>
   </div>;
 
-  export default Router;
+  export default MainRoutes;
