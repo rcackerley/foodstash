@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 
 //db queries
 let createUser = (user) =>
-  db.query(`INSERT into users (email, password, username, fname, lname) VALUES ('${user.email}', '${user.password}', '${user.username}', '${user.fname}', '${lname}') RETURNING id;`)
+  db.query(`INSERT into users (email, password, username, firstname, lastname) VALUES ('${user.email}', '${user.password}', '${user.username}', '${user.firstname}', '${user.lastname}') RETURNING id;`)
 
 let getMyRecipesFromDB = (id) =>
   db.query(`SELECT * from recipes WHERE id = ${id}`)
@@ -82,6 +82,8 @@ app.use(bodyParser.json());
 app.get('/recipes', getMyRecipes)
 app.get('/all-recipes', getAllRecipes)
 app.get('/cookbooks', getMyCookBooks)
+app.post('/users', postUser)
+app.post('/signin', signIn)
 
 
 app.listen(3000, () => console.log('Recipes running on 3000'))
