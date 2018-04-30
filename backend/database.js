@@ -58,11 +58,12 @@ let findUserByEmail = async (email) => {
   return db.query(`SELECT * FROM users WHERE email='${email}'`);
 }
 
-module.exports = {
-  getAllRecipes,
-  getOneRecipe,
-  searchRecipes,
-  addRecipe,
-  findUserByEmail,
-  addNewUser
-};
+module.exports = db;
+// module.exports = {
+//   getAllRecipes,
+//   getOneRecipe,
+//   searchRecipes,
+//   addRecipe,
+//   findUserByEmail,
+//   addNewUser
+// };
