@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.12
--- Dumped by pg_dump version 9.5.12
+-- Dumped from database version 10.3
+-- Dumped by pg_dump version 10.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -33,7 +34,76 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: images; Type: TABLE; Schema: public; Owner: ubuntu
+-- Name: categories; Type: TABLE; Schema: public; Owner: chrisgoodell
+--
+
+CREATE TABLE public.categories (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.categories OWNER TO chrisgoodell;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
+--
+
+CREATE SEQUENCE public.categories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categories_id_seq OWNER TO chrisgoodell;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
+--
+
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+
+
+--
+-- Name: cookbooks; Type: TABLE; Schema: public; Owner: chrisgoodell
+--
+
+CREATE TABLE public.cookbooks (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    recipe_id integer[]
+);
+
+
+ALTER TABLE public.cookbooks OWNER TO chrisgoodell;
+
+--
+-- Name: cookbooks_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
+--
+
+CREATE SEQUENCE public.cookbooks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cookbooks_id_seq OWNER TO chrisgoodell;
+
+--
+-- Name: cookbooks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
+--
+
+ALTER SEQUENCE public.cookbooks_id_seq OWNED BY public.cookbooks.id;
+
+
+--
+-- Name: images; Type: TABLE; Schema: public; Owner: chrisgoodell
 --
 
 CREATE TABLE public.images (
@@ -44,10 +114,10 @@ CREATE TABLE public.images (
 );
 
 
-ALTER TABLE public.images OWNER TO ubuntu;
+ALTER TABLE public.images OWNER TO chrisgoodell;
 
 --
--- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: ubuntu
+-- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
 --
 
 CREATE SEQUENCE public.images_id_seq
@@ -58,17 +128,51 @@ CREATE SEQUENCE public.images_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.images_id_seq OWNER TO ubuntu;
+ALTER TABLE public.images_id_seq OWNER TO chrisgoodell;
 
 --
--- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ubuntu
+-- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
 --
 
 ALTER SEQUENCE public.images_id_seq OWNED BY public.images.id;
 
 
 --
--- Name: ratings; Type: TABLE; Schema: public; Owner: ubuntu
+-- Name: ingredients; Type: TABLE; Schema: public; Owner: chrisgoodell
+--
+
+CREATE TABLE public.ingredients (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.ingredients OWNER TO chrisgoodell;
+
+--
+-- Name: ingredients_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
+--
+
+CREATE SEQUENCE public.ingredients_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ingredients_id_seq OWNER TO chrisgoodell;
+
+--
+-- Name: ingredients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
+--
+
+ALTER SEQUENCE public.ingredients_id_seq OWNED BY public.ingredients.id;
+
+
+--
+-- Name: ratings; Type: TABLE; Schema: public; Owner: chrisgoodell
 --
 
 CREATE TABLE public.ratings (
@@ -78,10 +182,10 @@ CREATE TABLE public.ratings (
 );
 
 
-ALTER TABLE public.ratings OWNER TO ubuntu;
+ALTER TABLE public.ratings OWNER TO chrisgoodell;
 
 --
--- Name: ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: ubuntu
+-- Name: ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
 --
 
 CREATE SEQUENCE public.ratings_id_seq
@@ -92,17 +196,17 @@ CREATE SEQUENCE public.ratings_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.ratings_id_seq OWNER TO ubuntu;
+ALTER TABLE public.ratings_id_seq OWNER TO chrisgoodell;
 
 --
--- Name: ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ubuntu
+-- Name: ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
 --
 
 ALTER SEQUENCE public.ratings_id_seq OWNED BY public.ratings.id;
 
 
 --
--- Name: recipes; Type: TABLE; Schema: public; Owner: ubuntu
+-- Name: recipes; Type: TABLE; Schema: public; Owner: chrisgoodell
 --
 
 CREATE TABLE public.recipes (
@@ -116,17 +220,18 @@ CREATE TABLE public.recipes (
     descr character varying NOT NULL,
     tag character varying DEFAULT ''::character varying NOT NULL,
     user_id integer NOT NULL,
-    ingredients jsonb,
     directions jsonb,
     servings integer DEFAULT 1 NOT NULL,
-    image_url character varying
+    image_url character varying,
+    categories_id integer,
+    ingredients integer[]
 );
 
 
-ALTER TABLE public.recipes OWNER TO ubuntu;
+ALTER TABLE public.recipes OWNER TO chrisgoodell;
 
 --
--- Name: recipes_id_seq; Type: SEQUENCE; Schema: public; Owner: ubuntu
+-- Name: recipes_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
 --
 
 CREATE SEQUENCE public.recipes_id_seq
@@ -137,17 +242,17 @@ CREATE SEQUENCE public.recipes_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.recipes_id_seq OWNER TO ubuntu;
+ALTER TABLE public.recipes_id_seq OWNER TO chrisgoodell;
 
 --
--- Name: recipes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ubuntu
+-- Name: recipes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
 --
 
 ALTER SEQUENCE public.recipes_id_seq OWNED BY public.recipes.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: ubuntu
+-- Name: users; Type: TABLE; Schema: public; Owner: chrisgoodell
 --
 
 CREATE TABLE public.users (
@@ -160,10 +265,10 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO ubuntu;
+ALTER TABLE public.users OWNER TO chrisgoodell;
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: ubuntu
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -174,45 +279,82 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO ubuntu;
+ALTER TABLE public.users_id_seq OWNER TO chrisgoodell;
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: ubuntu
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: ubuntu
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
+
+
+--
+-- Name: cookbooks id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.cookbooks ALTER COLUMN id SET DEFAULT nextval('public.cookbooks_id_seq'::regclass);
+
+
+--
+-- Name: images id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.images ALTER COLUMN id SET DEFAULT nextval('public.images_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: ubuntu
+-- Name: ingredients id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.ingredients ALTER COLUMN id SET DEFAULT nextval('public.ingredients_id_seq'::regclass);
+
+
+--
+-- Name: ratings id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.ratings ALTER COLUMN id SET DEFAULT nextval('public.ratings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: ubuntu
+-- Name: recipes id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.recipes ALTER COLUMN id SET DEFAULT nextval('public.recipes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: ubuntu
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: ubuntu
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
+--
+
+COPY public.categories (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cookbooks; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
+--
+
+COPY public.cookbooks (id, user_id, recipe_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
 COPY public.images (id, createdon, link, recipe_id) FROM stdin;
@@ -221,14 +363,15 @@ COPY public.images (id, createdon, link, recipe_id) FROM stdin;
 
 
 --
--- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
+-- Data for Name: ingredients; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-SELECT pg_catalog.setval('public.images_id_seq', 2, true);
+COPY public.ingredients (id, name) FROM stdin;
+\.
 
 
 --
--- Data for Name: ratings; Type: TABLE DATA; Schema: public; Owner: ubuntu
+-- Data for Name: ratings; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
 COPY public.ratings (id, rating_val, recipe_id) FROM stdin;
@@ -237,31 +380,17 @@ COPY public.ratings (id, rating_val, recipe_id) FROM stdin;
 
 
 --
--- Name: ratings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
+-- Data for Name: recipes; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-SELECT pg_catalog.setval('public.ratings_id_seq', 2, true);
-
-
---
--- Data for Name: recipes; Type: TABLE DATA; Schema: public; Owner: ubuntu
---
-
-COPY public.recipes (id, title, ver, derived_id, prepmins, cookmins, createdon, descr, tag, user_id, ingredients, directions, servings, image_url) FROM stdin;
-1	Peanut Butter Pie	1	$1$	45	30	2018-04-04 15:37:30.638819	Some description		1	{"1": "Peanut butter", "2": "Chocolate graham crackers"}	{"1": "First direction", "2": "Second direction"}	8	\N
-3	Baja Fish Tacos	1	$3$	20	30	2018-04-04 16:11:14.649974	Some description		1	{"1": "Fish", "2": "Other ingredients"}	{"1": "Cook fish", "2": "Make tacos"}	2	https://res.cloudinary.com/hellofresh/image/upload/f_auto,fl_lossy,q_80,w_auto:100:1280/v1/hellofresh_s3/image/blackened-fish-tacos-f8fdce33.jpg
+COPY public.recipes (id, title, ver, derived_id, prepmins, cookmins, createdon, descr, tag, user_id, directions, servings, image_url, categories_id, ingredients) FROM stdin;
+1	Peanut Butter Pie	1	$1$	45	30	2018-04-04 15:37:30.638819	Some description		1	{"1": "First direction", "2": "Second direction"}	8	\N	\N	\N
+3	Baja Fish Tacos	1	$3$	20	30	2018-04-04 16:11:14.649974	Some description		1	{"1": "Cook fish", "2": "Make tacos"}	2	https://res.cloudinary.com/hellofresh/image/upload/f_auto,fl_lossy,q_80,w_auto:100:1280/v1/hellofresh_s3/image/blackened-fish-tacos-f8fdce33.jpg	\N	\N
 \.
 
 
 --
--- Name: recipes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
---
-
-SELECT pg_catalog.setval('public.recipes_id_seq', 3, true);
-
-
---
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: ubuntu
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
 COPY public.users (id, username, hpass, email, fname, lname) FROM stdin;
@@ -270,14 +399,80 @@ COPY public.users (id, username, hpass, email, fname, lname) FROM stdin;
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: ubuntu
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+--
+
+SELECT pg_catalog.setval('public.categories_id_seq', 1, false);
+
+
+--
+-- Name: cookbooks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+--
+
+SELECT pg_catalog.setval('public.cookbooks_id_seq', 1, false);
+
+
+--
+-- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+--
+
+SELECT pg_catalog.setval('public.images_id_seq', 2, true);
+
+
+--
+-- Name: ingredients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+--
+
+SELECT pg_catalog.setval('public.ingredients_id_seq', 1, false);
+
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+--
+
+SELECT pg_catalog.setval('public.ratings_id_seq', 2, true);
+
+
+--
+-- Name: recipes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+--
+
+SELECT pg_catalog.setval('public.recipes_id_seq', 3, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 1, true);
 
 
 --
--- Name: images_pkey; Type: CONSTRAINT; Schema: public; Owner: ubuntu
+-- Name: categories categories_name_key; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_name_key UNIQUE (name);
+
+
+--
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cookbooks cookbooks_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.cookbooks
+    ADD CONSTRAINT cookbooks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: images images_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.images
@@ -285,7 +480,23 @@ ALTER TABLE ONLY public.images
 
 
 --
--- Name: ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: ubuntu
+-- Name: ingredients ingredients_name_key; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.ingredients
+    ADD CONSTRAINT ingredients_name_key UNIQUE (name);
+
+
+--
+-- Name: ingredients ingredients_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.ingredients
+    ADD CONSTRAINT ingredients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ratings ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.ratings
@@ -293,7 +504,7 @@ ALTER TABLE ONLY public.ratings
 
 
 --
--- Name: recipes_pkey; Type: CONSTRAINT; Schema: public; Owner: ubuntu
+-- Name: recipes recipes_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.recipes
@@ -301,7 +512,7 @@ ALTER TABLE ONLY public.recipes
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: ubuntu
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.users
@@ -309,7 +520,15 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: images_recipe_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
+-- Name: cookbooks cookbooks_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.cookbooks
+    ADD CONSTRAINT cookbooks_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: images images_recipe_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.images
@@ -317,7 +536,7 @@ ALTER TABLE ONLY public.images
 
 
 --
--- Name: ratings_recipe_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
+-- Name: ratings ratings_recipe_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.ratings
@@ -325,21 +544,19 @@ ALTER TABLE ONLY public.ratings
 
 
 --
--- Name: recipes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: ubuntu
+-- Name: recipes recipes_categories_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.recipes
+    ADD CONSTRAINT recipes_categories_id_fkey FOREIGN KEY (categories_id) REFERENCES public.categories(id);
+
+
+--
+-- Name: recipes recipes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.recipes
     ADD CONSTRAINT recipes_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
