@@ -1,6 +1,15 @@
-
+let getAllRecipes = () =>
+  fetch('/all-recipes')
+  .then(res => res.json())
 
 let getMyRecipes = (token) =>
-  fetch('/recipes')
+  fetch('/recipes', {
+    headers: { authorization: token }
+  })
   .then(res => res.json())
-  .then(recipes => recipes)
+
+let getMyCookBooks = (token) =>
+  fetch('/cookboks', {
+    headers: {authorization: token}
+  })
+  .then(res => res.json())
