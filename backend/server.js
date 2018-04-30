@@ -11,6 +11,16 @@ const bodyParser = require('body-parser');
 let createUser = (user) =>
   db.query(`INSERT into users (email, password, username, fname, lname) VALUES ('${user.email}', '${user.password}', '${user.username}', '${user.fname}', '${lname}') RETURNING id;`)
 
+let getMyRecipesFromDB = (id) =>
+  db.query(`SELECT * from recipes WHERE id = ${id}`)
+
+let getAllRecipes = (req, res) =>
+  db.query(`SELECT * from recipes`)
+  .then(recipes => res.send(recipes))
+
+let getMyCookBooks = (id) =>
+  db.query(`SELECT * from cookbooks WHERE id = ${id}`)
+  
 //authorization
 let createToken = (userId) => {
   console.log(userId);
@@ -47,10 +57,30 @@ let postUser = (req, res) => {
   .catch(error => res.send(error));
 }
 
+let getMyRecipes = (req, res) => {
+  let token = req.headers;
+  return (
+    jwt.verify(token.token, signature)
+    .then(res => getMyRecipesFromDB(token.id))
+    .then(res => res.send(res))
+  )
+}
 
+let getMyCookBooks = (req, res) => {
+  let token = req.headers;
+  return(
+      jwt.verify(token.token, signature)
+      .then(res => getMyCookBooksFromDB(token.id))
+      .then(res => res.send(res))
+  )
+
+}
 
 //Middleware
 app.use(bodyParser.json());
+app.get('/recipes', getMyRecipes)
+app.get('/all-recipes', getAllRecipes)
+app.get('/cookbooks', getMyCookBooks)
 
 
 app.listen(3000, () => console.log('Recipes running on 3000'))
