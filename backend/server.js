@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
-const db = require('./db.js');
+const db = require('./database.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const signature = '@!3$%%^&1ed^&*!l@#^&***()R0441';
@@ -18,9 +18,10 @@ let getAllRecipes = (req, res) =>
   db.query(`SELECT * from recipes`)
   .then(recipes => res.send(recipes))
 
-let getMyCookBooks = (id) =>
+let getMyCookBooksFromDB = (id) =>
   db.query(`SELECT * from cookbooks WHERE id = ${id}`)
-  
+
+
 //authorization
 let createToken = (userId) => {
   console.log(userId);
