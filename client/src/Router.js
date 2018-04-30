@@ -18,7 +18,7 @@ let Router = () =>
             <Route path="/account" component={AccountScreen} />
             <Route path="/categories" component={CategoryScreen} />
             <Route path="/ingredients" component={IngredientsScreen} />
-            <Route path="/recipes" component={RecipesScreen} />
+            <Route path="/recipes" component={RecipesList} />
             <Route path="/#/recipes/:recipe" component={RecipeScreen} />
         </Switch>
         <PrimaryNav />
