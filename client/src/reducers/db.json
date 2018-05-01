@@ -1,0 +1,68 @@
+{
+  "recipes": [
+        {
+            "id": 1,
+            "title": "pasta",
+            "img_main": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/3/1/0/FNM_040111-WN-Dinners-030_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371595164628.jpeg",
+            "prepmins": 30
+        },
+        {
+            "id": 2,
+            "title": "pizza",
+            "img_main": "https://media-cdn.tripadvisor.com/media/photo-s/0e/a0/60/f3/salamina.jpg",
+            "prepmins": 45
+        },
+        {
+            "id": 3,
+            "title": "bagel",
+            "img_main": "https://static01.nyt.com/images/2016/08/16/dining/baron-bagels/baron-bagels-articleLarge.jpg",
+            "prepmins": 15
+        }
+    ],
+  "categories": [
+        {
+            "id": 1,
+            "title": "breakfast",
+            "img_main": "https://www.bobevans.com/-/media/bobevans_com/images/our-restaurants/2017winter/big_egg_bfast_core_winterfy17.jpg?h=333&la=en&w=500&hash=0CADDF6BC5033B2EB4521129EF2201803FFA414E",
+            "prepmins": 30
+        },
+        {
+            "id": 2,
+            "title": "lunch",
+            "img_main": "http://finedininglovers.cdn.crosscast-system.com/ImageAlbum/5858/original_blt.sandwiches.jpg",
+            "prepmins": 45
+        },
+        {
+            "id": 3,
+            "title": "dinner",
+            "img_main": "http://assets.kraftfoods.com/recipe_images/opendeploy/89336_640x428.jpg",
+            "prepmins": 15
+        },
+        {
+            "id": 4,
+            "title": "dessert",
+            "img_main": "https://bonflavour.com/media/2017/12/Chocolate-and-Berries-Yogurt-Dessert1.jpg",
+            "prepmins": 15
+        }
+    ],
+  "ingredients": [
+        {
+            "id": 1,
+            "title": "tomato",
+            "img_main": "https://media.istockphoto.com/photos/tomato-isolated-on-white-background-picture-id466175630?k=6&m=466175630&s=612x612&w=0&h=fu_mQBjGJZIliOWwCR0Vf2myRvKWyQDsymxEIi8tZ38=",
+            "prepmins": 30
+        },
+        {
+            "id": 2,
+            "title": "beans",
+            "img_main": "https://images-na.ssl-images-amazon.com/images/I/61snvtRA5yL._SL1500_.jpg",
+            "prepmins": 45
+        },
+        {
+            "id": 3,
+            "title": "rice",
+            "img_main": "http://yours4everorganic.com/yours4ever/wp-content/uploads/2017/01/basmati-rice-brown-1.jpg",
+            "prepmins": 15
+        }
+    ]
+}
