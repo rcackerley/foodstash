@@ -27,8 +27,8 @@ class SearchBar extends React.Component{
     }
 
     if (searchString.length > 0){
-      libraries = libraries.filter((l) => {
-        return l.title.toLowerCase().match( searchString );
+      libraries = libraries.filter((term) => {
+        return term.title.toLowerCase().match( searchString );
       });
 
     }
@@ -37,8 +37,8 @@ class SearchBar extends React.Component{
       <div>
         <input type="text" value={this.state.searchString} onChange={ event => handleChange(event)} placeholder="Search" />
         <ul>
-          { libraries.map(function(l){
-              return <li>{l.title}</li>
+          { libraries.map((term) => {
+              return <li>{term.title}</li>
           }) }
         </ul>
       </div>
