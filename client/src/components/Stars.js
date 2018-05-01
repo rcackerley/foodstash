@@ -1,3 +1,4 @@
+import React from 'react';
 
 let Stars = () =>
     <div class="stars" data-stars="1">

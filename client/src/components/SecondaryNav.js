@@ -1,5 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-let SecondaryNav = () => <div>Account Screen</div>;
+let SecondaryNav = () => <div>
+
+</div>;
 
 export default SecondaryNav;
