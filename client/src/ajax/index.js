@@ -22,6 +22,7 @@ export let postRecipe = (recipe, token) =>
     'content-type': 'application/json'
   }
   })
+  .then(res => res.json())
 
 export let createCookbook = (cookbook, token) =>
   fetch('/cookbooks', {
@@ -32,3 +33,4 @@ export let createCookbook = (cookbook, token) =>
       'content-type': 'application/json'
     }
   })
+  .then(res => res.json())

@@ -33,7 +33,11 @@ let postRecipeToDB = (recipe) =>
   '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings})
   RETURNING "id", "title", "ver", "derived_id", "prepmins", "cookmins", "createdon",
   "descr", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
-  
+
+let createCookBookInDB = (cookbook) =>
+  //Write query here
+
+
 //authorization
 let createToken = (userId) => {
   console.log(userId);
@@ -94,19 +98,32 @@ let getMyCookBooks = (req, res) => {
 let postRecipe = (req, res) => {
   let recipe = req.body
   let token = req.headers.authorization;
-  tokenValidator(token);
+  let validation = tokenValidator(token);
   return (
     postRecipeToDB(recipe)
     .then(response => res.send(response))
     .catch(err => res.send(err))
   )
 }
+
+let postCookBook = (req, res) => {
+  let cookbook = req.bodyParser
+  let token = req.headers.authorization;
+  let validation = tokenValidator(token);
+  return (
+    createCookBookInDB(cookbook)
+    .then(response => res.send(response))
+    .catch(err => res.send(err))
+  )
+}
+
 //Middleware
 app.use(bodyParser.json());
 app.get('/recipes', getMyRecipes)
 app.post('/recipes', postRecipe)
 app.get('/all-recipes', getAllRecipes)
 app.get('/cookbooks', getMyCookBooks)
+app.post('/cookbooks', postCookBook)
 app.post('/users', postUser)
 app.post('/signin', signIn)
 app.get('/search', searchTerms)
