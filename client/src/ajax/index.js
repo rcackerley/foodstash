@@ -17,6 +17,7 @@ export let getMyCookBooks = (token) =>
 export let postRecipe = (recipe, token) =>
   fetch('/recipes', {
     method: 'POST',
-    headers: {authorization: token},
-    content-type: application/json
+    headers: {authorization: token,
+    'content-type': 'application/json'
+  }
   })
