@@ -39,7 +39,8 @@ SET default_with_oids = false;
 
 CREATE TABLE public.categories (
     id integer NOT NULL,
-    name character varying(100) NOT NULL
+    name character varying(100) NOT NULL,
+    image_url character varying
 );
 
 
@@ -341,7 +342,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-COPY public.categories (id, name) FROM stdin;
+COPY public.categories (id, name, image_url) FROM stdin;
 \.
 
 
