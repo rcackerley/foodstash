@@ -7,4 +7,4 @@ let RouterComp = () =>
       <Route exact path="/" component={App} />
   </Router>
 
-export default Router;
+export default RouterComp;
