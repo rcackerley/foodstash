@@ -1,5 +1,7 @@
 import React from 'react';
 
-let AccountScreen = () => <div>Account Screen</div>;
+let AccountScreen =  ({ ingredients }) => 
+  <div><p>AccountScreen</p></div>
+
 
 export default AccountScreen;
