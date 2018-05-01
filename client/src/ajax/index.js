@@ -16,8 +16,19 @@ export let getMyCookBooks = (token) =>
 
 export let postRecipe = (recipe, token) =>
   fetch('/recipes', {
+    body: recipe,
     method: 'POST',
     headers: {authorization: token,
     'content-type': 'application/json'
   }
+  })
+
+export let createCookbook = (cookbook, token) =>
+  fetch('/cookbooks', {
+    body: cookbook,
+    method: 'POST',
+    headers: {
+      authorization: token,
+      'content-type': 'application/json'
+    }
   })
