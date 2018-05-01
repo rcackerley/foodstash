@@ -46,48 +46,4 @@ class SearchBar extends React.Component{
   }
 }
 
-
-
-
-// class SearchBar extends React.Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       terms: [],
-//       updatedList: [],
-//     }
-//   }
-//
-//   componentDidMount() {
-//       fetch('/search')
-//       .then(res => res.json())
-//       .then(terms => this.setState({terms: terms, updatedList: terms}))
-//   }
-//
-//   render() {
-//     let {updatedList, terms} = this.state;
-//     let filterList = (searchString) => {
-//       console.log(searchString)
-//       if (searchString === '') {
-//           this.setState({updatedList: terms});
-//           return
-//       }
-//       let matchingItems = updatedList;
-//       let filteredList = matchingItems.filter(listItemObject => listItemObject.title.toLowerCase().includes(searchString.toLowerCase()))
-//       this.setState({updatedList: filteredList})
-//     }
-//
-//     return (
-//       <div className="filter-list">
-//         <form>
-//         <fieldset className="form-group">
-//         <input type="text" className="form-control form-control-lg" placeholder="Search" onChange={ event => filterList(event.target.value)}/>
-//         </fieldset>
-//         </form>
-//       </div>
-//     )
-//   }
-// }
-
-
 export default SearchBar;
