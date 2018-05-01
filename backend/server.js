@@ -26,6 +26,14 @@ let searchTerms = (req, res) =>
   .then(terms => res.send(terms))
   .catch(err => res.send(err))
 
+let postRecipeToDB = (recipe) =>
+  db.query(`INSERT INTO "public"."recipes"("title", "ver", "prepmins", "cookmins",
+  "descr", "user_id", "ingredients", "directions", "servings")
+  VALUES('${recipe.title}', ${recipe.ver}, ${recipe.prepmins}, ${recipe.cookmins}, '${recipe.descr}', ${recipe.user_id},
+  '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings})
+  RETURNING "id", "title", "ver", "derived_id", "prepmins", "cookmins", "createdon",
+  "descr", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
+  
 //authorization
 let createToken = (userId) => {
   console.log(userId);
@@ -44,6 +52,9 @@ let validateCredentials = (res, email, password) => {
   .then(token => { console.log(token); return res.send(token)})
   .catch(error => res.send(error));
 }
+
+let tokenValidator = (token) =>
+  jwt.verify(token, signature)
 
 //handlers
 let signIn = (req, res) => {
@@ -78,12 +89,22 @@ let getMyCookBooks = (req, res) => {
       getMyCookBooksFromDB(payload.userId)
       .then(cookbooks => res.send(cookbooks))
   )
-
 }
 
+let postRecipe = (req, res) => {
+  let recipe = req.body
+  let token = req.headers.authorization;
+  tokenValidator(token);
+  return (
+    postRecipeToDB(recipe)
+    .then(response => res.send(response))
+    .catch(err => res.send(err))
+  )
+}
 //Middleware
 app.use(bodyParser.json());
 app.get('/recipes', getMyRecipes)
+app.post('/recipes', postRecipe)
 app.get('/all-recipes', getAllRecipes)
 app.get('/cookbooks', getMyCookBooks)
 app.post('/users', postUser)
