@@ -1,13 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import RecipeList from './RecipeList';
+import { connect } from 'react-redux';
 
-let RecipeScreen = ({ recipeData }) =>
-  <div className="catagoryCard card" data-id={recipeData.id}>
-    <img className="recipe-image" src={recipeData.image_url} />
-    <div className="recipe-top">
-      <span>{recipeData.title}</span>
-    </div>
-  </div>
+let RecipeScreen = ({ recipes }) =>
+    <RecipeList recipes={recipes} />
 
+let mapStateToProps = (state, props) => {
+    let { recipes } = state;
+    return { recipes: recipes };
+};
 
-export default RecipeScreen;
+let RecipeScreenState = connect(
+    mapStateToProps
+)(RecipeScreen);
+
+export default RecipeScreenState; 

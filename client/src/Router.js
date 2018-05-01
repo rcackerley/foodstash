@@ -9,8 +9,6 @@ import RecipeScreen from './components/RecipeScreen';
 import PrimaryNav from './components/PrimaryNav';
 import SecondaryNav from './components/PrimaryNav';
 
-// import Category from './Category';
-
 let Router = () =>
     <div>
       <SecondaryNav />
@@ -24,4 +22,5 @@ let Router = () =>
         <PrimaryNav />
   </div>;
 
-  export default Router;
+export default Router;
+
