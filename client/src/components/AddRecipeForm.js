@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { addRecipe } from './actions';
 import { connect } from 'react-redux';
 import { postRecipe } from './ajax/index';
+import {dispatch} from './store';
 
 
 
@@ -13,6 +14,10 @@ class AddRecipeForm extends Component {
     this.state = {
 
     }
+  }
+  
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
   onFormSubmit(e) {
     e.preventDefault();
