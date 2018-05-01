@@ -1,4 +1,5 @@
 import React from 'react';
+import IngredientsCard from './IngredientsCard';
 
 let IngredientScreen = ( ({ ingredients }) => {
   let renderIngredientsCardList = ( ingredients ) => {
@@ -6,3 +7,5 @@ let IngredientScreen = ( ({ ingredients }) => {
   }
   return renderIngredientsCardList();
 })
+
+export default IngredientScreen

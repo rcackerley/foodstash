@@ -59,20 +59,20 @@ let postUser = (req, res) => {
 }
 
 let getMyRecipes = (req, res) => {
-  let token = req.headers;
+  let authorization = req.headers.authorization;
+  let payload = jwt.verify(authorization, signature);
   return (
-    jwt.verify(token.token, signature)
-    .then(res => getMyRecipesFromDB(token.id))
-    .then(res => res.send(res))
+    getMyRecipesFromDB(payload.userId)
+    .then(recipes => res.send(recipes))
   )
 }
 
 let getMyCookBooks = (req, res) => {
-  let token = req.headers;
+  let authorization = req.headers.authorization;
+  let payload = jwt.verify(authorization, signature);
   return(
-      jwt.verify(token.token, signature)
-      .then(res => getMyCookBooksFromDB(token.id))
-      .then(res => res.send(res))
+      getMyCookBooksFromDB(payload.userId)
+      .then(cookbooks => res.send(cookbooks))
   )
 
 }

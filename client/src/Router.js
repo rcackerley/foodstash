@@ -1,11 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import HomeScreen from './HomeScreen';
-import AccountScreen from './AccountScreen';
-import CategoryScreen from './CategoryScreen';
-import IngredientsScreen from './IngredientsScreen';
-import RecipesList from './RecipesList';
-import RecipeScreen from './RecipeScreen';
+import HomeScreen from './components/HomeScreen';
+import AccountScreen from './components/AccountScreen';
+import CategoryScreen from './components/CategoryScreen';
+import IngredientsScreen from './components/IngredientsScreen';
+import RecipesList from './components/RecipesList';
+import RecipeScreen from './components/RecipeScreen';
+import RecipesScreen from './components/RecipeScreen';
 
 // import Category from './Category';
 
