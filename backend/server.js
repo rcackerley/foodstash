@@ -12,15 +12,19 @@ let createUser = (user) =>
   db.query(`INSERT into users (email, password, username, firstname, lastname) VALUES ('${user.email}', '${user.password}', '${user.username}', '${user.firstname}', '${user.lastname}') RETURNING id;`)
 
 let getMyRecipesFromDB = (id) =>
-  db.query(`SELECT * from recipes WHERE id = ${id}`)
+  db.query(`SELECT * from recipes WHERE id = ${id};`)
 
 let getAllRecipes = (req, res) =>
   db.query(`SELECT * from recipes`)
   .then(recipes => res.send(recipes))
 
 let getMyCookBooksFromDB = (id) =>
-  db.query(`SELECT * from cookbooks WHERE id = ${id}`)
+  db.query(`SELECT * from cookbooks WHERE id = ${id};`)
 
+let searchTerms = (req, res) =>
+  db.query(`SELECT title from recipes;`)
+  .then(terms => res.send(terms))
+  .catch(err => res.send(err))
 
 //authorization
 let createToken = (userId) => {
@@ -84,6 +88,7 @@ app.get('/all-recipes', getAllRecipes)
 app.get('/cookbooks', getMyCookBooks)
 app.post('/users', postUser)
 app.post('/signin', signIn)
+app.get('/search', searchTerms)
 
 
 app.listen(3000, () => console.log('Recipes running on 3000'))
