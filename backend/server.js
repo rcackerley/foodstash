@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 
 //db queries
 let createUser = (user) =>
-  db.query(`INSERT into users (email, password, username, fname, lname) VALUES ('${user.email}', '${user.password}', '${user.username}', '${user.fname}', '${lname}') RETURNING id;`)
+  db.query(`INSERT into users (email, password, username, firstname, lastname) VALUES ('${user.email}', '${user.password}', '${user.username}', '${user.firstname}', '${user.lastname}') RETURNING id;`)
 
 let getMyRecipesFromDB = (id) =>
   db.query(`SELECT * from recipes WHERE id = ${id}`)
@@ -59,20 +59,20 @@ let postUser = (req, res) => {
 }
 
 let getMyRecipes = (req, res) => {
-  let token = req.headers;
+  let authorization = req.headers.authorization;
+  let payload = jwt.verify(authorization, signature);
   return (
-    jwt.verify(token.token, signature)
-    .then(res => getMyRecipesFromDB(token.id))
-    .then(res => res.send(res))
+    getMyRecipesFromDB(payload.userId)
+    .then(recipes => res.send(recipes))
   )
 }
 
 let getMyCookBooks = (req, res) => {
-  let token = req.headers;
+  let authorization = req.headers.authorization;
+  let payload = jwt.verify(authorization, signature);
   return(
-      jwt.verify(token.token, signature)
-      .then(res => getMyCookBooksFromDB(token.id))
-      .then(res => res.send(res))
+      getMyCookBooksFromDB(payload.userId)
+      .then(cookbooks => res.send(cookbooks))
   )
 
 }
@@ -82,6 +82,8 @@ app.use(bodyParser.json());
 app.get('/recipes', getMyRecipes)
 app.get('/all-recipes', getAllRecipes)
 app.get('/cookbooks', getMyCookBooks)
+app.post('/users', postUser)
+app.post('/signin', signIn)
 
 
 app.listen(3000, () => console.log('Recipes running on 3000'))

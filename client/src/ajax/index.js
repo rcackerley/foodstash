@@ -9,7 +9,7 @@ let getMyRecipes = (token) =>
   .then(res => res.json())
 
 let getMyCookBooks = (token) =>
-  fetch('/cookboks', {
+  fetch('/cookbooks', {
     headers: {authorization: token}
   })
   .then(res => res.json())

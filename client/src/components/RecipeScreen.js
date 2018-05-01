@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 let RecipeScreen = ({ recipes }) =>
     <RecipeList recipes={recipes} />
-    // <h1> h1 </h1>
 
 let mapStateToProps = (state, props) => {
     let { recipes } = state;

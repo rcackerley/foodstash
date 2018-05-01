@@ -1,10 +1,26 @@
 import React from 'react';
-import App from './App';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-let RouterComp = () =>
-  <Router>
-      <Route exact path="/" component={App} />
-  </Router>
+import AccountScreen from './components/AccountScreen';
+import CategoryScreen from './components/CategoryScreen';
+import IngredientsScreen from './components/IngredientsScreen';
+import RecipeList from './components/RecipeList';
+import RecipeScreen from './components/RecipeScreen';
+import PrimaryNav from './components/PrimaryNav';
+import SecondaryNav from './components/PrimaryNav';
 
-export default RouterComp;
+let Router = () =>
+    <div>
+      <SecondaryNav />
+        <Switch>
+            <Route path="/account" component={AccountScreen} />
+            <Route path="/categories" component={CategoryScreen} />
+            <Route path="/ingredients" component={IngredientsScreen} />
+            <Route path="/recipes" component={RecipeList} />
+            <Route path="/#/recipes/:recipe" component={RecipeScreen} />
+        </Switch>
+        <PrimaryNav />
+  </div>;
+
+export default Router;
+
