@@ -1,14 +1,38 @@
 body {
-  font-size: 1.2em;
+  font-size: 15px;
   line-height: 1.5;
   color: #353535;
   background-color: #dedede;
 }
 
-.recipe-list {
+.recipe-list, .category-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 1rem;
+}
+
+.category-card {
+  background-color: white;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24);
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.category-card .category-card-top {
+  padding: 10px 10px;
+}
+
+.category-card .category-hero {
+  width: 100%;
+  object-fit: cover;
+  width: 100%;
+  flex: 1;
+}
+.category-card-link {
+  text-decoration: none;
+  color: black;
 }
 
 .recipe-card {
@@ -18,15 +42,7 @@ body {
   display: flex; 
   flex-direction: column;
   justify-content: space-between;
-  
-  /* flex-wrap: wrap;  
-
-  flex: 1 1 100%; */
 }
-/* .recipe-card > * {
-  flex: 1 1 100%;
-} */
-
 .recipe-card .recipe-card-top {
   display: flex;
   align-items: center;
@@ -57,6 +73,43 @@ body {
 .recipe-card .recipe-card-bottom .recipe-prep-time img {
   width: 15px;
 }
+
+
+.primary-nav {
+    position: fixed;
+    z-index: 100; 
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    background-color: white;
+    padding: .5em 0;
+}
+.primary-nav-links {
+  display: flex;
+  justify-content: space-around;
+}
+
+.primary-nav-links img {
+  width: 20px;
+}
+.primary-nav-links > a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: 1em;
+}
+
+
+
+
+
+
+
+
+
 
 .stars {
   cursor: pointer;
@@ -102,12 +155,23 @@ body {
   fill: #d8d8d8;
 }
 
-
-
-
-
-
-
+.Site{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.Site-content {
+    flex: 1 0 auto;
+    /* padding: var(--space) var(--space) 0; */
+    width: 100%;
+}
+.Site-content:after {
+    content: ‘\00a0’;
+    display: block;
+    /* margin-top: var( — space); */
+    height: 0;
+    visibility: hidden;
+} 
 
 section.recipe {
   margin: 0 10px;

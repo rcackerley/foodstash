@@ -1,7 +1,14 @@
 import React from 'react';
+import PrimaryNav from './PrimaryNav';
 
-let Shell =  ({ ingredients }) => 
-  <div><p>Shell</p></div>
+let Shell =  ({children}) => 
+  <div className="Site">
+    <div className="Site-content">
+      {children}
+    </div>
+    <PrimaryNav />
+  </div>
+
 
 
 export default Shell;
