@@ -11,6 +11,7 @@ import RecipeListScreen from './components/RecipeListScreen';
 import PrimaryNav from './components/PrimaryNav';
 import SecondaryNav from './components/PrimaryNav';
 import RecipeScreen from './components/RecipeScreen';
+import SearchScreen from './components/SearchScreen';
 
 let Router = () =>
   <HashRouter>
@@ -26,4 +27,3 @@ let Router = () =>
 </HashRouter>;
 
 export default Router;
-
