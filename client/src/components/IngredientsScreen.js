@@ -8,4 +8,5 @@ let IngredientScreen = ( ({ ingredients }) => {
   return renderIngredientsCardList();
 })
 
-export default IngredientScreen
+export default IngredientScreen;
+

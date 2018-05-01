@@ -2,7 +2,7 @@ import React from 'react';
 import Stars from './Stars';
 import { Link } from 'react-router-dom';
 
-let ProductItem = ({ recipeData }) =>
+let RecipeCard = ({ recipeData }) =>
     <div className="card" data-id={recipeData.id}>
         <div className="card-top">
             <span>{recipeData.title}</span>
@@ -18,4 +18,4 @@ let ProductItem = ({ recipeData }) =>
         </div>
     </div>
 
-export default ProductItem;
+export default RecipeCard;
