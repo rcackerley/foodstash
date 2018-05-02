@@ -12,7 +12,6 @@ import RecipeScreen from './components/RecipeScreen';
 import AddScreen from './components/AddScreen';
 import PrimaryNav from './components/PrimaryNav';
 import SecondaryNav from './components/PrimaryNav';
-import RecipeListScreen from './components/RecipeListScreen';
 
 let Router = () =>
   <HashRouter>
