@@ -135,7 +135,9 @@ class AddDerivedRecipeForm extends Component {
                   name="descr"
                   className=""
                   value={this.state.desc}
-                  onChange={this.onChange}>
+                  onChange={this.onChange}
+                  placeholder={this.props.recipes[parentRecipeId].desc}
+                  >
                 </textarea>
               </div>
             </li>
