@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 // Let's create a "real-time search" component
 
 class SearchBar extends React.Component{

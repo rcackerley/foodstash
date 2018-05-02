@@ -41,7 +41,31 @@
         {
             "id": 4,
             "title": "dessert",
-            "img_main": "https://bonflavour.com/media/2017/12/Chocolate-and-Berries-Yogurt-Dessert1.jpg",
+            "img_main": "https://images-gmi-pmc.edge-generalmills.com/5a2bc6ae-782b-4559-92eb-f084b1b170ed.jpg",
+            "prepmins": 15
+        },
+        {
+            "id": 5,
+            "title": "  soups",
+            "img_main": "https://imagesvc.timeincapp.com/v3/mm/image?url=http%3A%2F%2Fcdn-image.myrecipes.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fold-fashioned-chicken-noodle-soup-ck.jpg%3Fitok%3DZ8tmJK4T&w=800&q=85",
+            "prepmins": 15
+        },
+        {
+            "id": 6,
+            "title": "salads",
+            "img_main": "https://dingo.care2.com/pictures/greenliving/1146/1145877.large.jpg",
+            "prepmins": 15
+        },
+        {
+            "id": 7,
+            "title": "snacks",
+            "img_main": "http://watchfit.com/wp-content/uploads/2014/05/7-Healthy-late-night-snacks-that-will-NOT-undo-it-all.jpg",
+            "prepmins": 15
+        },
+        {
+            "id": 8,
+            "title": "appetizers",
+            "img_main": "https://tipbuzz.com/wp-content/uploads/Ritz-Cracker-Appetizers-1.jpg",
             "prepmins": 15
         }
     ],

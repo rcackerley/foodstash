@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-let IngredientCard = ({ ingredientData }) =>
-<Link to={`/ingredients/${ingredientData.id}`} >
-  <div className="ingredientCard card" data-id={ingredientData.id}>
-    <img className="item-hero" src={ingredientData.image_url} />
-    <div className="card-top">
-      <span>{ingredientData.title}</span>
+let IngredientCard = ({ ingredient }) =>
+  <Link className="ingredient-card-link" to={`/categories/${ingredient.id}`} >
+    <div className="ingredient-card">
+      <img className="ingredient-hero" src={ingredient.img_main} />
+      <div className="ingredient-card-top">
+        <span>{ingredient.title}</span>
+      </div>
     </div>
-  </div>
   </Link>
 
 export default IngredientCard;

@@ -1,14 +1,32 @@
 import React from 'react';
-// import IngredientsCard from './IngredientsCard';
+import IngredientCard from './IngredientCard';
+import { connect } from 'react-redux';
+import Shell from './Shell';
+import SecondaryNav from './SecondaryNav';
+import SearchBar from './SearchBar';
+import PrimaryNav from './PrimaryNav';
 
 let IngredientListScreen =  ({ ingredients }) => 
-  <div><p>IngredientListScreen</p></div>
+  <div className="flex-app">
+    <SecondaryNav />
+    <div className="flex-content">
+      {/* <SearchBar /> */}
+      <div className="ingredient-list">
+        {ingredients.map(ingredient =>
+          <IngredientCard ingredient={ingredient} />
+        )}
+      </div>
+    </div>
+    <PrimaryNav />
+  </div>
 
-//   let renderIngredientsCardList = ( ingredients ) => {
-//   ingredients.foreach((ingredient) =>  <IngredientsCard props={ ingredient } /> );
-//   }
-//   return renderIngredientsCardList();
-// })
+let mapStateToProps = (state, props) => {
+  let { ingredients } = state;
+  return { ingredients: ingredients };
+};
 
+let IngredientListScreenState = connect(
+  mapStateToProps
+)(IngredientListScreen);
 
-export default IngredientListScreen;
+export default IngredientListScreenState;
