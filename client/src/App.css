@@ -437,3 +437,7 @@ input.search {
   justify-content: space-between;
   text-transform: capitalize;
 }
+
+.search-button {
+  margin-top: 10px
+}

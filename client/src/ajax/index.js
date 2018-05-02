@@ -34,3 +34,27 @@ export let createCookbook = (cookbook, token) =>
     }
   })
   .then(res => res.json())
+
+
+export let getRecipeById = (id) =>
+  fetch('/recipe', {
+    method: 'GET',
+    headers: {
+      id: id,
+      'content-type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+
+export let getRecipesBySearch = (searchLibrary) => {
+  console.log(searchLibrary)
+  return fetch('/search-recipes', {
+    method: 'POST',
+    body: searchLibrary,
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+  .then(res => console.log(res))
+}
