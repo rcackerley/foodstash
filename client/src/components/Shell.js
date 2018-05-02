@@ -6,7 +6,7 @@ let Shell =  ({children}) =>
     <div className="Site-content">
       {children}
     </div>
-    <PrimaryNav />
+    
   </div>
 
 
