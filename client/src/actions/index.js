@@ -13,5 +13,3 @@ export const addRecipe = recipe =>
 
 addRecipe.toString = () => 'ADD_RECIPE';
 setSearchResultRecipes.toString = () => 'SET_SEARCH_RESULTS_RECIPES';
-=======
-
