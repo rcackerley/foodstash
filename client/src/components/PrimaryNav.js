@@ -6,22 +6,26 @@ import addIcon from '../add-icon.svg'
 
 let PrimaryNav = () =>
   <div className="primary-nav">
-    <div className="primary-nav-container">
       <div className="primary-nav-links">
           <Link to="/categories">
-            <img src={recipeIcon}/>
-            <span>Recipes </span>
+            <div>
+              <img src={recipeIcon}/>
+              <span>Recipes </span>
+            </div>
           </Link>
           <Link to="/categories">
-            <img src={addIcon} />
-            <span>Add Recipe</span>
+            <div>
+              <img src={addIcon} />
+              <span>Add Recipe</span>
+            </div>
           </Link>
           <Link to="/categories">
-            <img src={accountIcon} />
-            <span>Account</span>
+            <div>
+              <img src={accountIcon} />
+              <span>Account</span>
+            </div>
           </Link>
       </div>
-    </div>
   </div>;
 
 export default PrimaryNav;
