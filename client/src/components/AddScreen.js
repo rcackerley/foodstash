@@ -1,7 +1,7 @@
 import React from 'react';
 import AddRecipeForm from './AddRecipeForm';
 
-let AddScreen =  ({ ingredients }) => 
+let AddScreen =  () => 
   <AddRecipeForm />
 
 

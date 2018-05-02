@@ -1,4 +1,4 @@
-import  addRecipe from '../actions/index';
+import  {addRecipe} from '../actions';
 import db from './db';
 
 const initialState = {
