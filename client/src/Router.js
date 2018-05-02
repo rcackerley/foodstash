@@ -7,24 +7,22 @@ import {
 import AccountScreen from './components/AccountScreen';
 import CategoryListScreen from './components/CategoryListScreen';
 import IngredientListScreen from './components/IngredientListScreen';
-// import PrimaryNav from './components/PrimaryNav';
-// import SecondaryNav from './components/PrimaryNav';
 import RecipeListScreen from './components/RecipeListScreen';
-// import SearchScreen from './components/SearchScreen';
 import SearchResultsScreen from './components/SearchResultsScreen';
 import AddScreen from './components/AddScreen';
 import AddDerivedRecipeForm from './components/AddDerivedRecipeForm';
-
-
-
-
+import RecipeListScreen from './components/RecipeListScreen';
+import RecipeScreen from './components/RecipeScreen';
+import AddScreen from './components/AddScreen';
+import PrimaryNav from './components/PrimaryNav';
+import SecondaryNav from './components/PrimaryNav';
 
 let Router = () =>
   <HashRouter>
         <Switch>
-            <Route path="/categories" component={CategoryListScreen} />  
-            <Route path="/ingredients" component={IngredientListScreen}/> 
-            <Route path="/account" component={AccountScreen} />  
+            <Route path="/categories" component={CategoryListScreen} />
+            <Route path="/ingredients" component={IngredientListScreen}/>
+            <Route path="/account" component={AccountScreen} />
             <Route path="/recipes" component={RecipeListScreen} />
             <Route path="/search-results" component={SearchResultsScreen} />
             <Route path="/add" component={AddScreen} />

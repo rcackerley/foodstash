@@ -34,8 +34,39 @@ let postRecipeToDB = (recipe) =>
   RETURNING "id", "title", "ver", "derived_id", "prepmins", "cookmins", "createdon",
   "descr", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
 
+//new recipe  
+let postNewRecipeToDB = (recipe) =>
+  db.query(`INSERT INTO "public"."recipes"("title", "ver", "prepmins", "cookmins",
+  "descr", "user_id", "ingredients", "directions", "servings")
+  VALUES('${recipe.title}', '1', ${recipe.prepmins}, ${recipe.cookmins}, '${recipe.descr}', ${recipe.user_id},
+  '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings})
+  RETURNING "id", "title", "ver", "derived_id", "prepmins", "cookmins", "createdon",
+  "descr", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
+
+//post new recipe from old recipes
+let postForkedRecipeToDB = (recipe) =>
+  db.query(`INSERT INTO "public"."recipes"("title", "ver", "derived_id", prepmins", "cookmins",
+  "descr", "user_id", "ingredients", "directions", "servings")
+  VALUES('${recipe.title}', ${recipe.ver}, ${recipe.derived_id}, ${recipe.prepmins}, ${recipe.cookmins}, '${recipe.descr}', ${recipe.user_id},
+  '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings})
+  RETURNING "id", "title", "ver", "derived_id", "prepmins", "cookmins", "createdon",
+  "descr", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
+
+let getRatings = (rating) =>
+  db.query(`SELECT AVG(rating_val), COUNT(rating_val) FROM ratings WHERE recipe_id = ${rating.recipe_id};`);
+
+let postRating = (rating) =>
+  db.query(`INSERT INTO "public"."ratings"("rating_val", "recipe_id") VALUES(${rating.value}, ${rating.recipe_id};`);
+
 let createCookBookInDB = (cookbook) => {
-    //Write query here
+  db.query(`INSERT into "public"."cookbooks"("user_id", "recipe_id") VALUES(${cookbook.user_id}, ${cookbook_recipe_id};`);
+}
+
+
+let getRecipeFromDB = (id) => {
+  console.log(id);
+  return db.query(`SELECT * from recipes where id = ${id};`)
+
 }
 
 
@@ -117,6 +148,14 @@ let postCookBook = (req, res) => {
   )
 }
 
+let getRecipeByID = (req, res) => {
+  let id = req.headers.id;
+  // console.log(id);
+  getRecipeFromDB(id)
+  .then(response => res.send(response))
+  .catch(err => res.send(err))
+}
+
 //Middleware
 app.use(bodyParser.json());
 app.get('/recipes', getMyRecipes)
@@ -126,6 +165,7 @@ app.get('/cookbooks', getMyCookBooks)
 app.post('/cookbooks', postCookBook)
 app.post('/users', postUser)
 app.post('/signin', signIn)
+app.get('/recipe', getRecipeByID)
 app.get('/search', searchTerms)
 
 

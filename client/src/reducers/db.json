@@ -3,20 +3,44 @@
         {
             "id": 1,
             "title": "pasta",
-            "img_main": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/3/1/0/FNM_040111-WN-Dinners-030_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371595164628.jpeg",
-            "prepmins": 30
+            "img_url": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/3/1/0/FNM_040111-WN-Dinners-030_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371595164628.jpeg",
+            "prepmins": 30,
+            "servings": 10,
+            "directions": {"1": "First direction", "2": "Second direction"},
+            "ingredients": {"1": "Peanut butter", "2": "Chocolate graham crackers"},
+            "user_id": 1,
+            "desc": "Lorem ipsum",
+            "cookmins": 27,
+            "derived_id": 1,
+            "ver": 1
         },
         {
             "id": 2,
             "title": "pizza",
-            "img_main": "https://media-cdn.tripadvisor.com/media/photo-s/0e/a0/60/f3/salamina.jpg",
-            "prepmins": 45
+            "img_url": "https://media-cdn.tripadvisor.com/media/photo-s/0e/a0/60/f3/salamina.jpg",
+            "prepmins": 45,
+            "servings": 10,
+            "directions": {"1": "First direction", "2": "Second direction"},
+            "ingredients": {"1": "Peanut butter", "2": "Chocolate graham crackers"},
+            "user_id": 1,
+            "desc": "Lorem ipsum",
+            "cookmins": 27,
+            "derived_id": 1,
+            "ver": 1
         },
         {
             "id": 3,
             "title": "bagel",
-            "img_main": "https://static01.nyt.com/images/2016/08/16/dining/baron-bagels/baron-bagels-articleLarge.jpg",
-            "prepmins": 15
+            "img_url": "https://static01.nyt.com/images/2016/08/16/dining/baron-bagels/baron-bagels-articleLarge.jpg",
+            "prepmins": 15,
+            "servings": 10,
+            "directions": {"1": "First direction", "2": "Second direction"},
+            "ingredients": {"1": "Peanut butter", "2": "Chocolate graham crackers"},
+            "user_id": 1,
+            "desc": "Lorem ipsum",
+            "cookmins": 27,
+            "derived_id": 1,
+            "ver": 1
         }
     ],
   "categories": [
