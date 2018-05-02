@@ -225,7 +225,8 @@ CREATE TABLE public.recipes (
     servings integer DEFAULT 1 NOT NULL,
     image_url character varying,
     categories_id integer,
-    ingredients integer[]
+    ingredients integer[],
+    notes character varying
 );
 
 
@@ -384,9 +385,9 @@ COPY public.ratings (id, rating_val, recipe_id) FROM stdin;
 -- Data for Name: recipes; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-COPY public.recipes (id, title, ver, derived_id, prepmins, cookmins, createdon, descr, tag, user_id, directions, servings, image_url, categories_id, ingredients) FROM stdin;
-1	Peanut Butter Pie	1	$1$	45	30	2018-04-04 15:37:30.638819	Some description		1	{"1": "First direction", "2": "Second direction"}	8	\N	\N	\N
-3	Baja Fish Tacos	1	$3$	20	30	2018-04-04 16:11:14.649974	Some description		1	{"1": "Cook fish", "2": "Make tacos"}	2	https://res.cloudinary.com/hellofresh/image/upload/f_auto,fl_lossy,q_80,w_auto:100:1280/v1/hellofresh_s3/image/blackened-fish-tacos-f8fdce33.jpg	\N	\N
+COPY public.recipes (id, title, ver, derived_id, prepmins, cookmins, createdon, descr, tag, user_id, directions, servings, image_url, categories_id, ingredients, notes) FROM stdin;
+1	Peanut Butter Pie	1	$1$	45	30	2018-04-04 15:37:30.638819	Some description		1	{"1": "First direction", "2": "Second direction"}	8	\N	\N	\N	\N
+3	Baja Fish Tacos	1	$3$	20	30	2018-04-04 16:11:14.649974	Some description		1	{"1": "Cook fish", "2": "Make tacos"}	2	https://res.cloudinary.com/hellofresh/image/upload/f_auto,fl_lossy,q_80,w_auto:100:1280/v1/hellofresh_s3/image/blackened-fish-tacos-f8fdce33.jpg	\N	\N	\N
 \.
 
 
