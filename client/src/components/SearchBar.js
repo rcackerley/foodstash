@@ -33,14 +33,14 @@ class SearchBar extends React.Component{
     }
 
     return (
-      <div>
-        <input type="text" value={this.state.searchString} onChange={ event => handleChange(event)} placeholder="Search" />
-        <ul>
+      <form className="search-form">
+        <input className="search" type="text" value={this.state.searchString} onChange={ event => handleChange(event)} placeholder="Search for categories, recipes, or ingredients" />
+        <ul className="suggestions">
           { libraries.map((term) => {
               return <li>{term.title}</li>
           }) }
         </ul>
-      </div>
+      </form>
     )
   }
 }
