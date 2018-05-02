@@ -1,4 +1,6 @@
-import db from './db'
+import  {addRecipe} from '../actions';
+import db from './db';
+
 const initialState = {
   recipes: db.recipes,
   categories: db.categories,
@@ -6,6 +8,9 @@ const initialState = {
 };
 
 const reducerRoutes = {
+  [ addRecipe ]: (state, action) => ({
+    ...state, recipes: state.recipes.concat[action.payload]
+  }),
   default: (state, action) => state
 }
 
