@@ -12,6 +12,7 @@ import SecondaryNav from './components/PrimaryNav';
 import RecipeListScreen from './components/RecipeListScreen';
 import SearchScreen from './components/SearchScreen';
 import SearchResultsScreen from './components/SearchResultsScreen';
+import RecipeScreen from './components/RecipeScreen';
 
 
 let Router = () =>
