@@ -34,7 +34,7 @@ let postRecipeToDB = (recipe) =>
   RETURNING "id", "title", "ver", "derived_id", "prepmins", "cookmins", "createdon",
   "descr", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
 
-let createCookBookInDB = (cookbook) =>
+// let createCookBookInDB = (cookbook) =>
   //Write query here
 
 
