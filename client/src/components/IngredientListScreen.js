@@ -10,7 +10,7 @@ let IngredientListScreen =  ({ ingredients }) =>
   <div className="flex-app">
     <SecondaryNav />
     <div className="flex-content">
-      <SearchBar />
+      {/* <SearchBar /> */}
       <div className="ingredient-list">
         {ingredients.map(ingredient =>
           <IngredientCard ingredient={ingredient} />
