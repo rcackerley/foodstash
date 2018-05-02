@@ -22,7 +22,7 @@ let getMyCookBooksFromDB = (id) =>
   db.query(`SELECT * from cookbooks WHERE id = ${id};`)
 
 let searchTerms = (req, res) =>
-  db.query(`SELECT title from recipes;`)
+  db.query(`SELECT title, id from recipes;`)
   .then(terms => res.send(terms))
   .catch(err => res.send(err))
 
@@ -69,6 +69,8 @@ let getRecipeFromDB = (id) => {
 
 }
 
+let getSearchedRecipes = (queryString) =>
+  db.query(`SELECT * from recipes WHERE id IN ${queryString};`)
 
 //authorization
 let createToken = (userId) => {
@@ -156,6 +158,15 @@ let getRecipeByID = (req, res) => {
   .catch(err => res.send(err))
 }
 
+let getIdsFromLibrary = (req, res) => {
+  let queryString = '';
+  console.log(JSON.stringify(req.body))
+  let library = req.body;
+  library.map(item => queryString + ',' + item.id )
+  getSearchedRecipes(queryString)
+  .then(response => res.send(response))
+}
+
 //Middleware
 app.use(bodyParser.json());
 app.get('/recipes', getMyRecipes)
@@ -167,6 +178,7 @@ app.post('/users', postUser)
 app.post('/signin', signIn)
 app.get('/recipe', getRecipeByID)
 app.get('/search', searchTerms)
+app.post('/search-recipes', getIdsFromLibrary)
 
 
 app.listen(3000, () => console.log('Recipes running on 3000'))

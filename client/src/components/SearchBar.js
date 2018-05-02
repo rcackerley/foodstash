@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {setSearchResultRecipes} from '../actions/index';
 import {connect} from 'react-redux';
+import {getRecipeById, getRecipesBySearch} from '../ajax/index';
 
 // Let's create a "real-time search" component
 
@@ -39,9 +40,16 @@ class SearchBar extends React.Component{
     return (
       <form className="search-form">
         <input className="search" type="text" value={this.state.searchString} onChange={ event => handleChange(event)} placeholder="Search for categories, recipes, or ingredients" />
+        <button className="search-button" onClick={event =>
+          getRecipesBySearch(libraries)
+          .then(recipes => setSearchResultRecipes(recipes))
+        }>Search</button>
         <ul className="suggestions">
           { libraries.map((term) =>
-              <Link onClick={event => setSearchResultRecipes(libraries)} to="/recipes"><li>{term.title}</li></Link>
+              <Link onClick={event => {
+                return getRecipeById(term.id)
+                .then(recipe => setSearchResultRecipes(recipe))
+              }} to="/recipes"><li>{term.title}</li></Link>
           ) }
         </ul>
       </form>
