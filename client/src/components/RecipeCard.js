@@ -1,6 +1,5 @@
 import React from 'react';
 import Stars from './Stars';
-import { Link } from 'react-router-dom';
 
 let RecipeCard = ({ recipe }) =>
     <div className="recipe-card">
