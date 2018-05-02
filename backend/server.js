@@ -38,6 +38,12 @@ let createCookBookInDB = (cookbook) => {
     //Write query here
 }
 
+let getRecipeFromDB = (id) => {
+  console.log(id);
+  return db.query(`SELECT * from recipes where id = ${id};`)
+
+}
+
 
 //authorization
 let createToken = (userId) => {
@@ -117,6 +123,14 @@ let postCookBook = (req, res) => {
   )
 }
 
+let getRecipeByID = (req, res) => {
+  let id = req.headers.id;
+  // console.log(id);
+  getRecipeFromDB(id)
+  .then(response => res.send(response))
+  .catch(err => res.send(err))
+}
+
 //Middleware
 app.use(bodyParser.json());
 app.get('/recipes', getMyRecipes)
@@ -126,6 +140,7 @@ app.get('/cookbooks', getMyCookBooks)
 app.post('/cookbooks', postCookBook)
 app.post('/users', postUser)
 app.post('/signin', signIn)
+app.get('/recipe', getRecipeByID)
 app.get('/search', searchTerms)
 
 

@@ -10,18 +10,15 @@ import IngredientListScreen from './components/IngredientListScreen';
 import PrimaryNav from './components/PrimaryNav';
 import SecondaryNav from './components/PrimaryNav';
 import RecipeListScreen from './components/RecipeListScreen';
-import SearchScreen from './components/SearchScreen';
-import SearchResultsScreen from './components/SearchResultsScreen';
 
 
 let Router = () =>
   <HashRouter>
         <Switch>
-            <Route path="/categories" component={CategoryListScreen} />  
-            <Route path="/ingredients" component={IngredientListScreen}/> 
-            <Route path="/account" component={AccountScreen} />  
+            <Route path="/categories" component={CategoryListScreen} />
+            <Route path="/ingredients" component={IngredientListScreen}/>
+            <Route path="/account" component={AccountScreen} />
             <Route path="/recipes" component={RecipeListScreen} />
-            <Route path="/search-results" component={SearchResultsScreen} />
             <Route path="/#/recipes/:recipe"  />
         </Switch>
 </HashRouter>;
