@@ -8,14 +8,11 @@ import AccountScreen from './components/AccountScreen';
 import CategoryListScreen from './components/CategoryListScreen';
 import IngredientListScreen from './components/IngredientListScreen';
 import RecipeListScreen from './components/RecipeListScreen';
-import SearchResultsScreen from './components/SearchResultsScreen';
-import AddScreen from './components/AddScreen';
 import AddDerivedRecipeForm from './components/AddDerivedRecipeForm';
-import RecipeListScreen from './components/RecipeListScreen';
 import RecipeScreen from './components/RecipeScreen';
 import AddScreen from './components/AddScreen';
-import PrimaryNav from './components/PrimaryNav';
-import SecondaryNav from './components/PrimaryNav';
+// import PrimaryNav from './components/PrimaryNav';
+// import SecondaryNav from './components/PrimaryNav';
 
 let Router = () =>
   <HashRouter>
@@ -24,7 +21,6 @@ let Router = () =>
             <Route path="/ingredients" component={IngredientListScreen}/>
             <Route path="/account" component={AccountScreen} />
             <Route path="/recipes" component={RecipeListScreen} />
-            <Route path="/search-results" component={SearchResultsScreen} />
             <Route path="/add" component={AddScreen} />
             <Route path="/add-derived" component={AddDerivedRecipeForm} />
             <Route path="/#/recipes/:recipe"  />
