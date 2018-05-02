@@ -1,12 +1,11 @@
 import React from 'react';
 import Stars from './Stars';
-import { Link } from 'react-router-dom';
 
 let RecipeCard = ({ recipe }) =>
     <div className="recipe-card">
-    
-            <img className="recipe-hero" src={recipe.img_main} />     
-        
+
+            <img className="recipe-hero" src={recipe.img_url} />     
+
         <div className="recipe-card-right">
             <div className="flex-spread">
                 <span>{recipe.title}</span>
@@ -16,7 +15,7 @@ let RecipeCard = ({ recipe }) =>
             </div>
             <div className="flex-spread">
                 <Stars/>
-                <div className="recipe-prep-time"> 
+                <div className="recipe-prep-time">
                     <span> {recipe.prepmins}m </span>
                     {/* <img src="https://cdn2.iconfinder.com/data/icons/pittogrammi/142/10-512.png" /> */}
                 </div>

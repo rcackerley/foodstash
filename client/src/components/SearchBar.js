@@ -1,5 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {setSearchResultRecipes} from '../actions/index';
+import {connect} from 'react-redux';
 
 // Let's create a "real-time search" component
 
@@ -20,6 +22,7 @@ class SearchBar extends React.Component{
 
   render() {
     let {libraries} = this.state;
+    let {setSearchResultRecipes} = this.props
     let searchString = this.state.searchString.trim().toLowerCase();
 
     let handleChange = (event) => {
@@ -38,7 +41,7 @@ class SearchBar extends React.Component{
         <input className="search" type="text" value={this.state.searchString} onChange={ event => handleChange(event)} placeholder="Search for categories, recipes, or ingredients" />
         <ul className="suggestions">
           { libraries.map((term) =>
-              <Link params={term} to="#"><li>{term.title}</li></Link>
+              <Link onClick={event => setSearchResultRecipes(libraries)} to="/recipes"><li>{term.title}</li></Link>
           ) }
         </ul>
       </form>
@@ -46,4 +49,7 @@ class SearchBar extends React.Component{
   }
 }
 
-export default SearchBar;
+let mapDispatchToProps = dispatch => ({setSearchResultRecipes: recipes => dispatch(setSearchResultRecipes(recipes))})
+let mapStateToProps = state => state;
+let SearchBarContainer = connect(mapStateToProps, mapDispatchToProps)(SearchBar)
+export default SearchBarContainer;

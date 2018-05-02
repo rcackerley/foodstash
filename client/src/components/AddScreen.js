@@ -1,8 +1,8 @@
 import React from 'react';
-// import IngredientsCard from './IngredientsCard';
+import AddRecipeForm from './AddRecipeForm';
 
-let AddScreen =  ({ ingredients }) => 
-  <div><p>AddScreen</p></div>
+let AddScreen =  () => 
+  <AddRecipeForm />
 
 
 export default AddScreen;
