@@ -20,7 +20,8 @@ class AddRecipeForm extends Component {
       cookmins: 0,
       directions: [],
       categories_id: 0,
-      ingredients: []
+      ingredients: [],
+      servings: 0
 
     }
 
@@ -28,27 +29,60 @@ class AddRecipeForm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  
+  
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
   onSubmit(e) {
     e.preventDefault();
 
-    const recipeData = {
-      recipe: this.state.recipe
-    };
+    const recipeData = this.state;
 
-    postRecipe(recipeData)
-      .then(res =>
-        store.dispatch({
-          type: addRecipe,
-          payload: res.data
-        })
-      )
+    // postRecipe(recipeData)
+      // .then(res =>
+      //   store.dispatch({
+      //     type: addRecipe,
+      //     payload: res.data
+      //   })
+      // )
+      // .then(res =>
+        console.log('res.data: ', recipeData)
+      // )
 
     this.props.addRecipe(recipeData);
   }
   render() {
+// let {title, image_url, desc } = this.props.recipe;
+console.log('props: ', this.props);
+
+    const categoryOptions = [
+      { label: 'Select Recipe Category', value: 0 },
+      { label: 'Breakfast', value: 1 },
+      { label: 'Lunch', value: 2 },
+      { label: 'Dinner', value: 3 },
+      { label: 'Dessert', value: 4 },
+    ]
+
+    const SelectListGroup = ({ name, value, onChange, options }) => {
+      const selectOptions = categoryOptions.map(option => (
+        <option key={option.label} value={option.value}>
+          {option.label}
+        </option>
+      ));
+      return (
+        <div className="form-group">
+          <select
+            name={name}
+            value={value}
+            onChange={onChange}
+          >
+            {selectOptions}
+          </select>
+        </div>
+      );
+    };
 
     return (
       <div className="add-recipe-form">
@@ -82,6 +116,15 @@ class AddRecipeForm extends Component {
                 </textarea>
               </div>
             </li>
+
+            <SelectListGroup
+                  id="categories_id"
+                  name="categories_id"
+                  className=""
+                  options={categoryOptions}
+                  value={this.state.categories_id}
+                  onChange={this.onChange}
+                  />
 
             <li>
               <label className="description" htmlFor="image_url">Add an Image </label>
@@ -120,7 +163,6 @@ class AddRecipeForm extends Component {
               </div>
             </li>
 
-            {/*   // SERVINGS NOT IN DATABASE 
                <li> 
               <label className="description" htmlFor="servings">Servings </label>
               <div> 
@@ -133,7 +175,7 @@ class AddRecipeForm extends Component {
                   onChange={this.onChange}
                 />
               </div> 
-            </li>*/}
+            </li>
 
             <li>
               <label className="description" htmlFor="ingredients">Ingredients </label>
@@ -171,13 +213,8 @@ class AddRecipeForm extends Component {
   }
 };
 
-{/* 
-<script src="form.js" type="application/javascript"></script> 
+let mapStateToProps = state => state;
 
-// let mapStateToProps = state => ({
-//   recipes: state.recipes
-//   });
-*/ }
-export default connect(null, { addRecipe })(
+export default connect(mapStateToProps, { addRecipe })(
   AddRecipeForm
 );
