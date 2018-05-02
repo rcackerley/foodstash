@@ -5,7 +5,7 @@ import { postRecipe } from '../ajax/index';
 import store from '../store';
 
 let addRecipe = rootReducer.addRecipe;
-
+console.log('addRecipe: ', addRecipe);
 
 
 class AddRecipeForm extends Component {
@@ -27,43 +27,52 @@ class AddRecipeForm extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+
   }
 
-  
-  
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-  onSubmit(e) {
+
+  onSubmit(e) { 
     e.preventDefault();
+   console.log('hey');
+   
+    let recipeData = {
+      title: this.state.title,
+      image_url: this.state.image_url,
+      desc: this.state.desc,
+      tag: this.state.tag,
+      prepmins: this.state.prepmins,
+      cookmins: this.state.cookmins,
+      directions: this.state.directions,
+      categories_id: this.state.categories_id,
+      ingredients: this.state.ingredients,
+      servings: this.state.servings
+    }
 
-    const recipeData = this.state;
+    console.log(recipeData);
 
-    // postRecipe(recipeData)
-      // .then(res =>
-      //   store.dispatch({
-      //     type: addRecipe,
-      //     payload: res.data
-      //   })
-      // )
-      // .then(res =>
-        console.log('res.data: ', recipeData)
-      // )
-
+    postRecipe(recipeData)
+    .then(res =>
+      store.dispatch({
+        type: addRecipe,
+        payload: res.data
+      })
+    )
+    .then((res) =>{
+    console.log('res.data: ', recipeData);}
+    )
     this.props.addRecipe(recipeData);
   }
-  render() {
-// let {title, image_url, desc } = this.props.recipe;
-console.log('props: ', this.props);
 
-    const categoryOptions = [
-      { label: 'Select Recipe Category', value: 0 },
-      { label: 'Breakfast', value: 1 },
-      { label: 'Lunch', value: 2 },
-      { label: 'Dinner', value: 3 },
-      { label: 'Dessert', value: 4 },
-    ]
+  render() {
+    console.log('props: ', this.props);
+
+    const categoryOptions = this.props.categories.map(cat =>
+      ({ label: cat.title, value: cat.id }));
+    categoryOptions.push({ label: '** Recipe Category **', value: 0 })
 
     const SelectListGroup = ({ name, value, onChange, options }) => {
       const selectOptions = categoryOptions.map(option => (
@@ -88,7 +97,7 @@ console.log('props: ', this.props);
       <div className="add-recipe-form">
 
         <h2>Add a Recipe</h2>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={ event => this.onSubmit(event)}>
           <ul>
             <li>
               <label className="description" htmlFor="title">Title </label>
@@ -118,13 +127,13 @@ console.log('props: ', this.props);
             </li>
 
             <SelectListGroup
-                  id="categories_id"
-                  name="categories_id"
-                  className=""
-                  options={categoryOptions}
-                  value={this.state.categories_id}
-                  onChange={this.onChange}
-                  />
+              id="categories_id"
+              name="categories_id"
+              className=""
+              options={categoryOptions}
+              value={this.state.categories_id}
+              onChange={this.onChange}
+            />
 
             <li>
               <label className="description" htmlFor="image_url">Add an Image </label>
@@ -163,18 +172,18 @@ console.log('props: ', this.props);
               </div>
             </li>
 
-               <li> 
+            <li>
               <label className="description" htmlFor="servings">Servings </label>
-              <div> 
-                <input 
-                id="servings" 
-                name="servings" 
-                className="" 
-                type="text" 
-                value={this.state.servings}
+              <div>
+                <input
+                  id="servings"
+                  name="servings"
+                  className=""
+                  type="text"
+                  value={this.state.servings}
                   onChange={this.onChange}
                 />
-              </div> 
+              </div>
             </li>
 
             <li>
@@ -204,7 +213,7 @@ console.log('props: ', this.props);
             </li>
 
             <li className="button">
-              <input id="saveForm" className="button_text" type="button" name="submit" value="Submit" />
+              <input id="saveForm" onClick={this.onSubmit} className="button_text" type="button" name="submit" value="Submit" />
             </li>
           </ul>
         </form>
