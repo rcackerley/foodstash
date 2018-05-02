@@ -34,13 +34,13 @@ let postRecipeToDB = (recipe) =>
   RETURNING "id", "title", "ver", "derived_id", "prepmins", "cookmins", "createdon",
   "descr", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
 
-// let createCookBookInDB = (cookbook) =>
-  //Write query here
+let createCookBookInDB = (cookbook) => {
+    //Write query here
+}
 
 
 //authorization
 let createToken = (userId) => {
-  console.log(userId);
   let tokenPayload = {userId: userId};
   tokenPayload.token = jwt.sign({userId: userId}, signature, {expiresIn: '7d'});
   return JSON.stringify(tokenPayload)

@@ -5,10 +5,14 @@ import Shell from './Shell';
 import SecondaryNav from './SecondaryNav';
 import SearchBar from './SearchBar';
 import PrimaryNav from './PrimaryNav';
+import Header from './Header';
 
 let IngredientListScreen =  ({ ingredients }) => 
   <div className="flex-app">
-    <SecondaryNav />
+    <div>
+      <Header />
+      <SecondaryNav />
+    </div>
     <div className="flex-content">
       {/* <SearchBar /> */}
       <div className="ingredient-list">
