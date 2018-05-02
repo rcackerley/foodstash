@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const pg = require('pg-promise')();
-const dbConfig = 'postgres://robby@localhost:5432/recipes';
+const dbConfig = 'postgres://kboot@localhost:5432/recipes';
 const db = pg(dbConfig);
 
 let getAllRecipes = () => db.query('SELECT * FROM recipes;');
