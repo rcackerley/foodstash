@@ -34,5 +34,3 @@ let RecipeListScreenState = connect(
 )(RecipeListScreen);
 
 export default RecipeListScreenState; 
-
-
