@@ -11,7 +11,8 @@ import PrimaryNav from './components/PrimaryNav';
 import SecondaryNav from './components/PrimaryNav';
 import RecipeListScreen from './components/RecipeListScreen';
 import SearchScreen from './components/SearchScreen';
-import RecipeScreen from './components/RecipeScreen';
+import SearchResultsScreen from './components/SearchResultsScreen';
+
 
 let Router = () =>
   <HashRouter>
@@ -21,7 +22,7 @@ let Router = () =>
             <Route path="/recipes" exact component={RecipeListScreen} />
             <Route path="/recipes/1" component={RecipeScreen} />  
             <Route path="/account" component={AccountScreen} />  
-            <Route path="/recipes" component={RecipeListScreen} />
+            <Route path="/search-results" component={SearchResultsScreen} />
             <Route path="/#/recipes/:recipe"  />
         </Switch>
 </HashRouter>;

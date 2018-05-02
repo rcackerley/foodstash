@@ -18,7 +18,7 @@ body {
   background-color: white;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24);
-  display: flex; 
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
@@ -51,7 +51,7 @@ body {
   background-color: white;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24);
-  display: flex; 
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
@@ -86,7 +86,6 @@ body {
   background-color: white;
   border-radius: 2px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24);
-
 }
 .flex-spread {
   display: flex;
@@ -117,7 +116,7 @@ body {
   object-fit: cover;
   width: 100%;
   flex: 1;
-  
+
 }
 
 .recipe-card .recipe-card-bottom {
@@ -131,16 +130,6 @@ body {
 .recipe-card .recipe-card-right  img {
   width: 15px;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 .primary-nav-links {
@@ -489,4 +478,44 @@ button {
 form.hide {
   display: none;
   transition: all 1s ease;
+}
+
+.search-form {
+  max-width: 600px;
+  margin: 0px auto;
+}
+
+input.search {
+  padding: 20px 0 20px 0;
+  margin: 0;
+  text-align: center;
+  outline: 0;
+  border: none;
+  width: 100%;
+  position: relative;
+  top: 10px;
+  z-index: 2;
+  border-radius: 5px;
+  font-size: 28px;
+  -webkit-box-shadow: 0 5px 10px rgba(75, 72, 72, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(75, 72, 72, 0.2);
+  box-shadow: 0 5px 10px rgba(75, 72, 72, 0.2);
+  color: #484e64;
+}
+
+.suggestions {
+  padding: 0;
+  position: static;
+}
+
+.suggestions li {
+  background: #fff;
+  list-style: none;
+  border-bottom: 1px solid #d0d6f0;
+  margin: 0;
+  padding: 20px;
+  transition: background 0.2s;
+  display: flex;
+  justify-content: space-between;
+  text-transform: capitalize;
 }

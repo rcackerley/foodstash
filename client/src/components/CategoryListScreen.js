@@ -7,19 +7,19 @@ import SearchBar from './SearchBar';
 import PrimaryNav from './PrimaryNav';
 import Header from './Header';
 
-let CategoryListScreen =  ({ categories }) => 
+let CategoryListScreen =  ({ categories }) =>
     <div className="flex-app">
       <div>
         <Header/>
         <SecondaryNav />
       </div>
       <div className="flex-content">
-        {/* <SearchBar/> */}
+        <SearchBar/>
         <div className="category-list">
           {categories.map(category =>
             <CategoryCard category={category} />
             )}
-        </div> 
+        </div>
       </div>
       <PrimaryNav />
     </div>
@@ -33,4 +33,4 @@ let CategoryListScreenState = connect(
   mapStateToProps
 )(CategoryListScreen);
 
-export default CategoryListScreenState; 
+export default CategoryListScreenState;
