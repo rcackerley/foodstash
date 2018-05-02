@@ -226,6 +226,88 @@ font-weight: 600;
 
 
 
+
+
+.r-screen {
+
+}
+.r-screen-hero img {
+  width: 100%;
+}
+.r-screen-title {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+.r-screen-info {
+  background-color: white;
+  padding: .5rem;
+  display: flex;
+  flex-direction: column;
+}
+.r-screen-info-columns {
+  display: flex;
+  justify-content: space-between;
+}
+.r-screen-info-columns div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.r-screen-tag-container {
+  display: flex;
+}
+.r-screen-tag {
+  background-color: #f0f0f0;
+  margin-right: 5px;
+}
+.r-screen-tag span {
+  padding: .4rem;
+}
+
+/***------------------**/
+
+.Tabs {
+  position: relative;
+  /* display: inline-block; */
+  margin-bottom: 3px;
+  display: flex;
+}
+
+.Tabs__Tab {
+  text-align: center;
+  width: 33.333333%;
+  padding: 1em;
+  background: #ededed;
+  color: limegreen;
+  cursor: pointer;
+}
+
+.Tabs__Tab:hover,
+.Tabs__Tab--active {
+  background: hotpink;
+  color: white;
+}
+
+.Tabs__Underline {
+  position: absolute;
+  width: 33.3333333%;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border-bottom: 3px solid orange;
+}
+
+
+
+
+
+
+
+
+
 .stars {
   cursor: pointer;
 }
