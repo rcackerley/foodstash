@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 // Let's create a "real-time search" component
 
@@ -36,9 +37,9 @@ class SearchBar extends React.Component{
       <form className="search-form">
         <input className="search" type="text" value={this.state.searchString} onChange={ event => handleChange(event)} placeholder="Search for categories, recipes, or ingredients" />
         <ul className="suggestions">
-          { libraries.map((term) => {
-              return <li>{term.title}</li>
-          }) }
+          { libraries.map((term) =>
+              <Link params={term} to="#"><li>{term.title}</li></Link>
+          ) }
         </ul>
       </form>
     )

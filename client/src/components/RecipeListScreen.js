@@ -10,6 +10,3 @@ let RecipeListScreen = ({ recipes }) =>
     </div> */}
 
 export default RecipeListScreen;
-
-
-
