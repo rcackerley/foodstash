@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import EnhanceForm from './EnhanceForm';
 import { Link } from 'react-router-dom';
 
-export const LoginForm = ({ state, handleSubmit, handleChange }) =>
+export const RegisterForm = ({ state, handleSubmit, handleChange }) =>
     <form className="login-form" onSubmit={handleSubmit}>
         <label> Email </label>
         <div>
@@ -23,13 +23,11 @@ export const LoginForm = ({ state, handleSubmit, handleChange }) =>
                 required="" />
         </div>
         <br />
-        <button>Sign In</button>
+        <button>Create Account</button>
         <br />
-        <Link className="create-account-btn" to="/register">Create Account</Link>
+        <Link className="login-btn" to="/login">Login</Link>
     </form>
 
-const EnhancedForm = EnhanceForm(LoginForm);
+const EnhancedForm = EnhanceForm(RegisterForm);
 
 export default EnhancedForm;
-
-
