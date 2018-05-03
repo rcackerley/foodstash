@@ -55,9 +55,8 @@ export let getRecipeById = (id) =>
   })
   .then(res => res.json())
 
-export let getRecipesBySearch = (searchLibrary) => {
-  console.log(searchLibrary)
-  return fetch('/search-recipes', {
+export let getRecipesBySearch = (searchLibrary) =>
+  fetch('/search-recipes', {
     body: JSON.stringify({searchLibrary}),
     method: 'POST',
     headers: {
@@ -65,4 +64,24 @@ export let getRecipesBySearch = (searchLibrary) => {
     }
   })
   .then(res => res.json())
-}
+
+
+export let createAccount = (user) =>
+  fetch('/users', {
+    body: JSON.stringify(user),
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+
+export let signIn = (user) =>
+  fetch('/signin', {
+    body: JSON.stringify(user),
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+  .then(res => res.json())

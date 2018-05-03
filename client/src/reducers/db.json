@@ -13,6 +13,7 @@
             "cookmins": 27,
             "derived_id": 1,
             "ver": 1,
+            "categories_id": 3,
             "tags": ["dinner", "italian"],
             "notes": ["hey here are some notes relating to this cool recipe"]
         },
@@ -28,7 +29,8 @@
             "desc": "Lorem ipsum",
             "cookmins": 27,
             "derived_id": 1,
-            "ver": 1
+            "ver": 1,
+            "categories_id": 3
         },
         {
             "id": 3,
@@ -42,7 +44,8 @@
             "desc": "Lorem ipsum",
             "cookmins": 27,
             "derived_id": 1,
-            "ver": 1
+            "ver": 1,
+            "categories_id": 1
         }
     ],
   "categories": [
