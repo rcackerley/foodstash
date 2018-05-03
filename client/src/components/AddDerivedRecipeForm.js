@@ -84,22 +84,23 @@ class AddDerivedRecipeForm extends Component {
 
     const categoryOptions = this.props.categories.map(cat =>
       ({ label: cat.title, value: cat.id }));
-    categoryOptions.push({ label: '** Recipe Category **', value: 0 })
+    categoryOptions.unshift({ label: '** Recipe Category **', value: 0 })
 
     const SelectListGroup = ({ name, value, onChange, options }) => {
-      const selectOptions = categoryOptions.map(option => (
-        <option key={option.label} value={option.value}>
+      let selectedCat = this.props.recipes[parentRecipeId].title;
+      
+      const optionTags = categoryOptions.map(option => (
+        <option key={option.label} value={this.props.recipes[parentRecipeId].label}>
           {option.label}
         </option>
       ));
       return (
         <div className="form-group">
           <select
-            name={name}
-            value={value}
+            name={name} value={selectedCat}
             onChange={onChange}
           >
-            {selectOptions}
+            {optionTags}
           </select>
         </div>
       );
