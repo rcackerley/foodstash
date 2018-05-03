@@ -13,19 +13,8 @@ import AddDerivedRecipeForm from './components/AddDerivedRecipeForm';
 import AddScreen from './components/AddScreen';
 import RegisterScreen from './components/RegisterScreen';
 import LoginScreen from './components/LoginScreen';
-import {connect} from 'react-redux';
-import {setToken} from './actions/index';
-import {getTokenFromLocalStorage} from './lib/index';
 
-class Router extends React.Component {
-  componentDidMount() {
-    let {setToken} = this.props;
-    let token = getTokenFromLocalStorage();
-    setToken(token)
-  }
-
-  render() {
-    return (
+let Router = () =>
       <HashRouter>
         <Switch>
             <Route path="/register" component={RegisterScreen} />
@@ -43,11 +32,5 @@ class Router extends React.Component {
             <Route path="/#/recipes/:recipe" />
         </Switch>
       </HashRouter>
-    )
-  }
-}
 
-let mapDispatchToProps = dispatch => ({setToken: (token) => dispatch(setToken(token)) });
-let mapStateToProps = state => state;
-let RouterContainer = connect(mapStateToProps, mapDispatchToProps)(Router)
-export default RouterContainer;
+export default Router;
