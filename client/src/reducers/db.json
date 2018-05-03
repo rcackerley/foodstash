@@ -6,13 +6,15 @@
             "img_url": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/3/1/0/FNM_040111-WN-Dinners-030_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371595164628.jpeg",
             "prepmins": 30,
             "servings": 10,
-            "directions": {"1": "First direction", "2": "Second direction"},
-            "ingredients": {"1": "Peanut butter", "2": "Chocolate graham crackers"},
+            "directions": ["First direction", "Second direction"],
+            "ingredients": ["Peanut butter", "Chocolate graham crackers"],
             "user_id": 1,
-            "desc": "Lorem ipsum",
+            "desc": "Cras metus sapien, rhoncus et sagittis eget, efficitur at ligula. Morbi sollicitudin, massa in consectetur iaculis, neque augue semper ligula, sed viverra arcu diam non risus. Nunc eu purus nunc. ",
             "cookmins": 27,
             "derived_id": 1,
-            "ver": 1
+            "ver": 1,
+            "tags": ["dinner", "italian"],
+            "notes": ["hey here are some notes relating to this cool recipe"]
         },
         {
             "id": 2,
