@@ -21,7 +21,7 @@ export const updateIngredients = ingredients =>
   ({
     type: updateIngredients.toString(),
     payload: ingredients
-
+  })
 export const setToken = token =>
   ({
     type: setToken.toString(),
