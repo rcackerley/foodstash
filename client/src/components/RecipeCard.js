@@ -3,9 +3,7 @@ import Stars from './Stars';
 
 let RecipeCard = ({ recipe }) =>
     <div className="recipe-card">
-
-            <img className="recipe-hero" src={recipe.img_url} />     
-
+        <img className="recipe-hero" src={recipe.image_url} />     
         <div className="recipe-card-right">
             <div className="flex-spread">
                 <span>{recipe.title}</span>
