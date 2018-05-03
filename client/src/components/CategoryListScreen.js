@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import CategoryCard from './CategoryCard';
 import { connect } from 'react-redux';
 import Shell from './Shell';
@@ -6,23 +6,46 @@ import SecondaryNav from './SecondaryNav';
 import SearchBar from './SearchBar';
 import PrimaryNav from './PrimaryNav';
 import Header from './Header';
+import { updateCategories } from '../actions/index';
+import { getAllCategories } from '../ajax/index';
 
-let CategoryListScreen =  ({ categories }) =>
-    <div className="flex-app">
-      <div>
-        <Header/>
-        <SecondaryNav />
-      </div>
-      <div className="flex-content">
-        {/* <SearchBar/> */}
-        <div className="category-list">
-          {categories.map(category =>
-            <CategoryCard category={category} />
-            )}
+class CategoryListScreen extends Component {
+  async componentDidMount() {
+    let { updateCategories } = this.props;
+    console.log('hi');
+    console.dir(getAllCategories);
+    let categories = await getAllCategories();
+    console.log(categories);
+    console.dir(updateCategories);
+    updateCategories(categories);
+  }
+  async doSomething() {
+    
+  }
+
+  render() {
+    let { categories } = this.props;
+    return (
+      <div className="flex-app">
+        <div>
+          <Header />
+          <SearchBar />
         </div>
+        <div className="flex-content">
+          <SecondaryNav />
+          <div className="category-list">
+            {categories.map(category =>
+              <CategoryCard category={category} />
+            )}
+          </div>
+        </div>
+        <PrimaryNav />
       </div>
-      <PrimaryNav />
-    </div>
+    );
+  }
+}
+
+let mapDispatchToProps = dispatch => ({ updateCategories: categories => dispatch(updateCategories(categories)) })
 
 let mapStateToProps = (state, props) => {
   let { categories } = state;
@@ -30,7 +53,8 @@ let mapStateToProps = (state, props) => {
 };
 
 let CategoryListScreenState = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(CategoryListScreen);
 
 export default CategoryListScreenState;
