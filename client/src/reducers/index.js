@@ -1,7 +1,6 @@
 
 import db from './db'
 import {setSearchResultRecipes, addRecipe, setToken, updateCategories, updateIngredients} from '../actions/index';
-import  {addRecipe} from '../actions';
 
 const initialState = {
   recipes: db.recipes,
