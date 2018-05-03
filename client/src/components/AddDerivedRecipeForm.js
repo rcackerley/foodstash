@@ -28,7 +28,7 @@ class AddDerivedRecipeForm extends Component {
       ingredients: [],
       servings: 0,
       derived_id: 0,
-      activeRecipe: 1
+      activeRecipe: 0
     }
 
     this.onChange = this.onChange.bind(this);
