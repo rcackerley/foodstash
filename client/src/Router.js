@@ -11,10 +11,14 @@ import RecipeListScreen from './components/RecipeListScreen';
 import RecipeScreen from './components/RecipeScreen';
 import AddDerivedRecipeForm from './components/AddDerivedRecipeForm';
 import AddScreen from './components/AddScreen';
+import RegisterScreen from './components/RegisterScreen';
+import LoginScreen from './components/LoginScreen';
 
 let Router = () =>
   <HashRouter>
         <Switch>
+            <Route path="/register" component={RegisterScreen} />  
+            <Route path="/login" component={LoginScreen} />  
             <Route path="/categories" component={CategoryListScreen} />  
             <Route path="/ingredients" component={IngredientListScreen}/> 
             <Route path="/recipes" exact component={RecipeListScreen} />

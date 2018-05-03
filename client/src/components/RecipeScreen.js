@@ -17,9 +17,9 @@ class RecipeScreen extends React.Component {
     render() {
         let {recipe} = this.props;
         const content = {
-            aTab: "Tab A fdfggggkdkfdkdkfkdfdkkfkddfkk",
-            bTab: "Tab B",
-            cTab: "Tab C"
+            aTab: recipe.ingredients,
+            bTab: recipe.directions,
+            cTab: recipe.notes
         };
     return (
     <div className="flex-app">
@@ -27,7 +27,7 @@ class RecipeScreen extends React.Component {
         <div className="flex-content">
             <div className="r-screen">
                 <div className="r-screen-hero">
-                    <img src={recipe.img_main} />
+                    <img src={recipe.img_url} />
                 </div>
                 <div className="r-screen-info">
                     <span className="r-screen-title">{recipe.title}</span>
@@ -36,30 +36,27 @@ class RecipeScreen extends React.Component {
                     </div>
                     <div className="r-screen-info-columns">
                         <div> 
-                            <span>prep mins </span>
-                            <span>20 </span>
+                            <span>prep time </span>
+                            <span>{recipe.prepmins} min </span>
                         </div>
                         <div>
-                            <span>prep mins </span>
-                            <span>20 </span>
+                            <span>cook time </span>
+                            <span>{recipe.cookmins} min</span>
                         </div>
                         <div>
-                            <span>prep mins </span>
-                            <span>20 </span>
+                            <span>servings </span>
+                            <span>{recipe.servings} </span>
                         </div>          
                     </div>
                 </div>
                 <div className="r-screen-description">
-                    <p>Cras metus sapien, rhoncus et sagittis eget, efficitur at ligula. Morbi sollicitudin,
-                            massa in consectetur iaculis, neque augue semper ligula, sed viverra arcu diam non
-                            risus. Nunc eu purus nunc. Nulla et libero id enim finibus dapibus vitae at nunc. </p>
+                    <p>{recipe.desc} </p>
                     <div className="r-screen-tag-container">
-                        <div className="r-screen-tag">
-                            <span>dinner </span>
-                        </div>
-                        <div className="r-screen-tag">
-                            <span>italian </span>
-                        </div>
+                        {recipe.tags.map(tag =>
+                            <div className="r-screen-tag">
+                                <span>{tag}</span>
+                            </div>
+                        )}   
                     </div>
                 </div>
                 <div className="r-screen-tabs">
@@ -71,8 +68,13 @@ class RecipeScreen extends React.Component {
                         <div key="bTab">Instructions</div>
                         <div key="cTab">Notes</div>
                     </Tabs>
-                    <h2>Content</h2>
-                    <p>{content[this.state.active]}</p>
+                    <div className="tab-container">
+                    <ol>
+                    {content[this.state.active].map(tag =>
+                      <li> {tag} </li>
+                    )}         
+                    </ol>
+                    </div>
                 </div>
             </div>
         </div>

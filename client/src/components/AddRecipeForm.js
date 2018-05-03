@@ -106,8 +106,6 @@ class AddRecipeForm extends Component {
 
     return (
       <div className="add-recipe-form">
-
-        <h2>Add a Recipe</h2>
         <form onSubmit={ event => this.onSubmit(event)}>
           <ul>
             <li>

@@ -11,7 +11,7 @@ let RecipeListScreen = ({ recipes }) =>
     <div className="flex-app">
         <div>
             <Header />
-            <SecondaryNav />
+            {/* <SecondaryNav /> */}
         </div>
         <div className="flex-content">
             {/* <SearchBar/> */}
