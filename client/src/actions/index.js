@@ -17,6 +17,13 @@ export const addRecipe = recipe =>
     payload: recipeId
   });
 
+export const setToken = token =>
+  ({
+    type: setToken.toString(),
+    payload: token
+  })
+
 addRecipe.toString = () => 'ADD_RECIPE';
 setSearchResultRecipes.toString = () => 'SET_SEARCH_RESULTS_RECIPES';
 setActiveRecipe.toString = () => 'SET_ACTIVE_RECIPE';
+setToken.toString = () => 'SET_TOKEN';

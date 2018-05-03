@@ -15,15 +15,15 @@ import RegisterScreen from './components/RegisterScreen';
 import LoginScreen from './components/LoginScreen';
 
 let Router = () =>
-  <HashRouter>
+      <HashRouter>
         <Switch>
-            <Route path="/register" component={RegisterScreen} />  
-            <Route path="/login" component={LoginScreen} />  
-            <Route path="/categories" component={CategoryListScreen} />  
-            <Route path="/ingredients" component={IngredientListScreen}/> 
+            <Route path="/register" component={RegisterScreen} />
+            <Route path="/login" component={LoginScreen} />
+            <Route path="/categories" component={CategoryListScreen} />
+            <Route path="/ingredients" component={IngredientListScreen}/>
             <Route path="/recipes" exact component={RecipeListScreen} />
-            <Route path="/recipes/1" component={RecipeScreen} />  
-            <Route path="/account" component={AccountScreen} />  
+            <Route path="/recipes/1" component={RecipeScreen} />
+            <Route path="/account" component={AccountScreen} />
             <Route path="/categories" component={CategoryListScreen} />
             <Route path="/ingredients" component={IngredientListScreen}/>
             <Route path="/account" component={AccountScreen} />
@@ -31,6 +31,6 @@ let Router = () =>
             <Route path="/add-derived" component={AddDerivedRecipeForm} />
             <Route path="/#/recipes/:recipe" />
         </Switch>
-</HashRouter>;
+      </HashRouter>
 
 export default Router;
