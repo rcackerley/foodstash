@@ -1,14 +1,14 @@
 
 import db from './db'
-import {setSearchResultRecipes, addRecipe, setToken, setActiveRecipe} from '../actions/index';
+import {setSearchResultRecipes, addRecipe, setToken, updateCategories, updateIngredients, setActiveRecipe} from '../actions/index';
 
 const initialState = {
   recipes: db.recipes,
-  categories: db.categories,
-  ingredients: db.ingredients,
-  activeRecipe: 1,
+  categories: [],
+  ingredients: [],
   token: null,
-  user: null
+  user: null,
+  activeRecipe: 1
 };
 
 const reducerRoutes = {
@@ -21,6 +21,12 @@ const reducerRoutes = {
   }),
   [ setActiveRecipe ]: (state, action) => ({
     ...state, activeRecipe: action.payload //payload is id
+  }),
+  [updateCategories]: (state, action) => ({
+    ...state, categories: action.payload
+  }),
+  [updateIngredients]: (state, action) => ({
+    ...state, ingredients: action.payload
   }),
   [ setToken ]: (state, action) => ({
     ...state, token: action.payload

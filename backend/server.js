@@ -62,10 +62,16 @@ let createCookBookInDB = (cookbook) => {
   db.query(`INSERT into "public"."cookbooks"("user_id", "recipe_id") VALUES(${cookbook.user_id}, ${cookbook_recipe_id};`);
 }
 
-
 let getRecipeFromDB = (id) =>
   db.query(`SELECT * from recipes where id = ${id};`)
 
+let getAllCategories = (req, res) =>
+  db.query(`SELECT * from categories`)
+    .then(categories => res.send(categories))
+
+let getAllIngredients = (req, res) =>
+  db.query(`SELECT * from ingredients`)
+    .then(ingredients => res.send(ingredients))
 
 let getSearchedRecipes = (queryString) => {
   let queryBuilder = `SELECT * from recipes WHERE id IN (`
@@ -175,6 +181,8 @@ let getIdsFromLibrary = (req, res) => {
 
 //Middleware
 app.use(bodyParser.json());
+app.get('/all-categories', getAllCategories)
+app.get('/all-ingredients', getAllIngredients)
 app.get('/recipes', getMyRecipes)
 app.post('/recipes', postRecipe)
 app.get('/all-recipes', getAllRecipes)
