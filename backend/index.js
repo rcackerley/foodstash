@@ -99,14 +99,13 @@ let signIn = (req, res) => {
   validateCredentials(res, email, password);
 }
 let postUser = (req, res) => {
-  let credentials = req.body;
-  bcrypt.hash(credentials.password, 10)
-  .then(hash => Object.assign({}, credentials, {password: hash}))
-  .then(user => createUser(user))
-  .then(arrayWithIdObject => arrayWithIdObject[0].id)
-  .then(id => createToken(id))
-  .then(token => res.send(token))
-  .catch(error => res.send(error));
+let credentials = req.body;
+let hash = await bcrypt.hash(credentials.password, 10);
+let user = Object.assign({}, credentials, {password: hash})
+let arrayWithIdObject = await createUser(user);
+let id = arrayWithIdObject[0].id;
+let token = createToken(id);
+res.send(token);
 }
 
 let getMyRecipes = (req, res) => {

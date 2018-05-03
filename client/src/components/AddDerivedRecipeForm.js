@@ -3,8 +3,9 @@ import rootReducer from '../reducers/index';
 import { connect } from 'react-redux';
 import { postRecipe } from '../ajax/index';
 import store from '../store';
+import { addRecipe, setActiveRecipe } from '../actions/index';
 
-let addRecipe = rootReducer.addRecipe;
+
 console.log('addRecipe: ', addRecipe);
 
 
@@ -28,7 +29,8 @@ class AddDerivedRecipeForm extends Component {
       ingredients: [],
       servings: 0,
       derived_id: 0,
-      activeRecipe: 0
+      activeRecipe: 0,
+      token: ''
     }
 
     this.onChange = this.onChange.bind(this);
@@ -64,7 +66,12 @@ class AddDerivedRecipeForm extends Component {
 
     console.log('props: ', this.props);
 
-    postRecipe(recipeData)
+    let {addRecipe,setActiveRecipe} = this.props;
+
+    setActiveRecipe(2);
+    addRecipe(recipeData)
+
+    postRecipe(recipeData, this.props.token.token)
       .then(res =>
         store.dispatch({
           type: addRecipe,
@@ -79,11 +86,8 @@ class AddDerivedRecipeForm extends Component {
   }
 
 
-
-
-
   render() {
-
+    let token = this.props.token.token;
     let parentRecipeId = this.props.activeRecipe;
 
     let parentRecipe = 
@@ -285,8 +289,12 @@ class AddDerivedRecipeForm extends Component {
   }
 };
 
+let mapDispatchToProps = dispatch => ({
+  addRecipe: recipe => dispatch(addRecipe(recipe)),
+  setActiveRecipe: id => dispatch(setActiveRecipe(id))
+  })
 let mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { addRecipe })(
+export default connect(mapStateToProps, mapDispatchToProps)(
   AddDerivedRecipeForm
 );
