@@ -94,12 +94,12 @@ class AddDerivedRecipeForm extends Component {
 
     // console.log('parentRecipe: ', parentRecipe);
     
-    let imageUrl = this.props.recipes[parentRecipeId].img_url && this.props.recipes[parentRecipeId].img_url.toString();
+    let imageUrl = parentRecipe.img_url && parentRecipe.img_url.toString();
     let picStyles = {width:'85px', height:'65px', backgroundImage:'url('+ imageUrl + ')', backgroundSize:'cover'}
     console.log('props: ', this.props);
 
     const categoryOptions = this.props.categories.map(cat =>
-      ({ label: cat.title, value: cat.id }));
+      ({ label: cat.title, value: cat.categories_id }));
     categoryOptions.unshift({ label: '** Recipe Category **', value: 0 })
 
     const SelectListGroup = ({ name, value, onChange, options }) => {
@@ -125,7 +125,7 @@ class AddDerivedRecipeForm extends Component {
     return (
       <div className="add-recipe-form">
 
-        <h2>Edit a Recipe</h2>
+        <h2>Edit this Recipe</h2>
         <form onSubmit={ event => this.onSubmit(event)}>
           <ul>
             <li>
@@ -139,7 +139,7 @@ class AddDerivedRecipeForm extends Component {
                   maxLength="255"
                   value={this.state.title}
                   onChange={this.onChange}
-                  placeholder={this.props.recipes[parentRecipeId].title}
+                  placeholder={parentRecipe.title}
                    />
               </div>
             </li>
@@ -209,7 +209,7 @@ class AddDerivedRecipeForm extends Component {
                   type="text"
                   value={this.state.cookmins}
                   onChange={this.onChange}
-                  placeholder={ this.props.recipes[parentRecipeId].cookmins && this.props.recipes[parentRecipeId].cookmins.toString() }
+                  placeholder={ parentRecipe.cookmins && parentRecipe.cookmins.toString() }
                    />
               </div>
             </li>
@@ -224,7 +224,7 @@ class AddDerivedRecipeForm extends Component {
                   type="text"
                   value={this.state.servings}
                   onChange={this.onChange}
-                  placeholder={this.props.recipes[parentRecipeId].servings && this.props.recipes[parentRecipeId].servings.toString() }
+                  placeholder={parentRecipe.servings && parentRecipe.servings.toString() }
                 ></textarea>
               </div>
             </li>
@@ -238,7 +238,7 @@ class AddDerivedRecipeForm extends Component {
                   className=""
                   value={this.state.ingredients}
                   onChange={this.onChange}
-                  placeholder={ Object.values(this.props.recipes[parentRecipeId].ingredients) }
+                  placeholder={ Object.values(parentRecipe.ingredients) }
                   >
                 </textarea>
               </div>
@@ -253,7 +253,7 @@ class AddDerivedRecipeForm extends Component {
                   className=""
                   value={this.state.directions}
                   onChange={this.onChange}
-                  placeholder={ Object.values(this.props.recipes[parentRecipeId].directions) }
+                  placeholder={ Object.values(parentRecipe.directions) }
                   >
                 </textarea>
               </div>
