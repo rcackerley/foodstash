@@ -66,3 +66,13 @@ export let createAccount = (user) =>
     }
   })
   .then(res => res.json())
+
+export let signIn = (user) =>
+  fetch('/signin', {
+    body: JSON.stringify(user),
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    }
+  })
+  .then(res => res.json())

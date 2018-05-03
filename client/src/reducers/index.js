@@ -6,7 +6,8 @@ const initialState = {
   recipes: db.recipes,
   categories: db.categories,
   ingredients: db.ingredients,
-  token: null
+  token: null,
+  user: null
 };
 
 const reducerRoutes = {
