@@ -1,6 +1,15 @@
 export let getAllRecipes = () =>
-  fetch('/all-recipes')
-  .then(res => res.json())
+    fetch('/all-recipes')
+    .then(res => res.json())
+
+export let getAllCategories = () =>
+  fetch('/all-categories')
+    .then(res => res.json())
+// await(await fetch('/all-categories')).json();
+
+export let getAllIngredients = () =>
+  fetch('/all-ingredients')
+    .then(res => res.json())
 
 export let getMyRecipes = (token) =>
   fetch('/recipes', {

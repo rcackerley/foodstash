@@ -1,12 +1,12 @@
 
 import db from './db'
-import {setSearchResultRecipes} from '../actions/index';
+import {setSearchResultRecipes, updateCategories} from '../actions/index';
 import  {addRecipe} from '../actions';
 
 const initialState = {
   recipes: db.recipes,
-  categories: db.categories,
-  ingredients: db.ingredients
+  categories: [],
+  ingredients: []
 };
 
 const reducerRoutes = {
@@ -16,6 +16,9 @@ const reducerRoutes = {
   }),
   [ addRecipe ]: (state, action) => ({
     ...state, recipes: state.recipes.concat[action.payload]
+  }),
+  [updateCategories]: (state, action) => ({
+    ...state, categories: action.payload
   }),
   default: (state, action) => state
 }
