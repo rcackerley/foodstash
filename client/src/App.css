@@ -382,6 +382,13 @@ button {
   padding: 0;
   width: 100%;
 }
+.add-recipe-form  label {
+  margin-top: 15px;
+  display: inline-block;
+}
+.add-recipe-form label.hug-top {
+  margin-top: 1px;
+}
 .add-recipe-form input{
  height:20px;
  width: calc(100% - 5px);

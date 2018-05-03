@@ -3,8 +3,11 @@ import rootReducer from '../reducers/index';
 import { connect } from 'react-redux';
 import { postRecipe } from '../ajax/index';
 import store from '../store';
+import { addRecipe, setActiveRecipe } from '../actions/index';
 
-let addRecipe = rootReducer.addRecipe;
+
+// let addRecipe = rootReducer.addRecipe;
+// let setActiveRecipe = rootReducer.setActiveRecipe;
 console.log('addRecipe: ', addRecipe);
 
 
@@ -27,7 +30,8 @@ class AddRecipeForm extends Component {
       categories_id: 0,
       ingredients: [],
       servings: 0,
-      derived_id: 0
+      derived_id: 0,
+      activeRecipe: 1
 
     }
 
@@ -41,10 +45,9 @@ class AddRecipeForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit(e) { 
+  onSubmit(e) {
     e.preventDefault();
-   console.log('hey');
-   
+
     let recipeData = {
       title: this.state.title,
       image_url: this.state.image_url,
@@ -61,20 +64,20 @@ class AddRecipeForm extends Component {
       derived_id: 0
     }
     console.log('recipeData: ', recipeData);
-    
+
     console.log('props: ', this.props);
 
+    store.dispatch(setActiveRecipe(2));
+    store.dispatch(addRecipe(recipeData));
+
+
     postRecipe(recipeData)
-    .then(res =>
-      store.dispatch({
-        type: addRecipe,
-        payload: res.data
-      })
-    )
-    .then((res) =>{
-    console.log('res.data: ', recipeData);}
-    )
-    .catch(err => console.log('DB error: '+ err) );
+
+      .then((res) => {
+        console.log('res.data: ', recipeData);
+      }
+      )
+      .catch(err => console.log('DB error: ' + err));
     // this.props.addRecipe(recipeData);
   }
 
@@ -106,10 +109,10 @@ class AddRecipeForm extends Component {
 
     return (
       <div className="add-recipe-form">
-        <form onSubmit={ event => this.onSubmit(event)}>
+        <form onSubmit={event => this.onSubmit(event)}>
           <ul>
             <li>
-              <label className="description" htmlFor="title">Title </label>
+              <label className="description hug-top" htmlFor="title">Title </label>
               <div>
                 <input
                   id="title"

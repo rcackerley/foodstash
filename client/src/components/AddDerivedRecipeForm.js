@@ -27,8 +27,8 @@ class AddDerivedRecipeForm extends Component {
       categories_id: 0,
       ingredients: [],
       servings: 0,
-      derived_id: 0
-
+      derived_id: 0,
+      activeRecipe: 0
     }
 
     this.onChange = this.onChange.bind(this);
@@ -36,14 +36,15 @@ class AddDerivedRecipeForm extends Component {
 
   }
 
+
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  onSubmit(e) { 
+  onSubmit(e) {
     e.preventDefault();
-   console.log('hey');
-   
+    console.log('hey');
+
     let recipeData = {
       title: this.state.title,
       img_url: this.state.img_url,
@@ -60,42 +61,37 @@ class AddDerivedRecipeForm extends Component {
       derived_id: 0
     }
     console.log('recipeData: ', recipeData);
-    
+
     console.log('props: ', this.props);
 
     postRecipe(recipeData)
-    .then(res =>
-      store.dispatch({
-        type: addRecipe,
-        payload: res.data
-      })
-    )
-    .then((res) =>{
-    console.log('res.data: ', recipeData);}
-    )
-    .catch(err => console.log('DB error: '+ err) );
-    // this.props.addRecipe(recipeData);
+      .then(res =>
+        store.dispatch({
+          type: addRecipe,
+          payload: res.data
+        })
+      )
+      .then((res) => {
+        console.log('res.data: ', recipeData);
+      }
+      )
+      .catch(err => console.log('DB error: ' + err));
   }
 
 
-  
+
 
 
   render() {
-    let parentRecipeId = 1;
-    let parentRecipe = this.props.recipes.find(ptRecipe => ptRecipe.id === parentRecipeId);
+
+    let parentRecipeId = this.props.activeRecipe;
+
+    let parentRecipe = 
+    this.props.recipes.find(ptRecipe => ptRecipe.id === parentRecipeId);
     console.log('## ', parentRecipe.title);
-    
-      // parentRecipe.id === parentRecipe);
 
-  //   this.props.recipes.forEach(recipe => {
-  //     recipe.find(parentRecipe => parentRecipe.id === parentRecipe)
-  // });
-
-    // console.log('parentRecipe: ', parentRecipe);
-    
     let imageUrl = parentRecipe.img_url && parentRecipe.img_url.toString();
-    let picStyles = {width:'85px', height:'65px', backgroundImage:'url('+ imageUrl + ')', backgroundSize:'cover'}
+    let picStyles = { width: '85px', height: '65px', backgroundImage: 'url(' + imageUrl + ')', backgroundSize: 'cover' }
     console.log('props: ', this.props);
 
     const categoryOptions = this.props.categories.map(cat =>
@@ -103,8 +99,11 @@ class AddDerivedRecipeForm extends Component {
     categoryOptions.unshift({ label: '** Recipe Category **', value: 0 })
 
     const SelectListGroup = ({ name, value, onChange, options }) => {
-      let selectedCat = this.props.recipes[parentRecipeId].title;
-      
+
+      let selectedCat = this.props.categories.find(cat => cat.id === parentRecipe.categories_id);
+      console.log('selectedCat: ', selectedCat);
+
+
       const optionTags = categoryOptions.map(option => (
         <option key={option.label} value={option.label}>
           {option.label}
@@ -113,7 +112,7 @@ class AddDerivedRecipeForm extends Component {
       return (
         <div className="form-group">
           <select
-            name={name} defaultValue={selectedCat} className="selectList"
+            name={name} defaultValue={selectedCat.title} className="selectList"
             onChange={onChange}
           >
             {optionTags}
@@ -126,10 +125,12 @@ class AddDerivedRecipeForm extends Component {
       <div className="add-recipe-form">
 
         <h2>Edit this Recipe</h2>
-        <form onSubmit={ event => this.onSubmit(event)}>
+        <form onSubmit={event => this.onSubmit(event)}>
           <ul>
             <li>
-              <label className="description" htmlFor="title">Title </label>
+              <label className="description hug-top" htmlFor="title">
+                Title
+              </label>
               <div>
                 <input
                   id="title"
@@ -137,15 +138,16 @@ class AddDerivedRecipeForm extends Component {
                   className=""
                   type="text"
                   maxLength="255"
-                  value={this.state.title}
+                  value={this.state.title ? this.state.title : parentRecipe.title}
                   onChange={this.onChange}
-                  placeholder={parentRecipe.title}
-                   />
+                />
               </div>
             </li>
 
             <li>
-              <label className="description" htmlFor="descr">Description</label>
+              <label className="description" htmlFor="descr">
+                Description
+              </label>
               <div>
                 <textarea
                   id="descr"
@@ -153,12 +155,13 @@ class AddDerivedRecipeForm extends Component {
                   className=""
                   value={this.state.desc}
                   onChange={this.onChange}
-                  placeholder={this.props.recipes[parentRecipeId].desc}
-                  >
+                >{parentRecipe.desc}
                 </textarea>
               </div>
             </li>
-
+            <label className="description" htmlFor="img_url">
+                Recipe Category 
+              </label>
             <SelectListGroup
               id="categories_id"
               name="categories_id"
@@ -169,9 +172,9 @@ class AddDerivedRecipeForm extends Component {
             />
 
             <li>
-              <label className="description" htmlFor="img_url">Main Image </label>
-
-              
+              <label className="description" htmlFor="img_url">
+                Main Image 
+              </label>
               <div className="currentRecipePic" style={picStyles}></div>
               <div>
                 <input id="img_url"
@@ -180,8 +183,19 @@ class AddDerivedRecipeForm extends Component {
                   type="file"
                   value={this.state.img_url}
                   onChange={this.onChange}
-                  placeholder={this.props.recipes[parentRecipeId].img_url && this.props.recipes[parentRecipeId].img_url.toString()}
-                   />
+                  placeholder={parentRecipe.img_url && parentRecipe.img_url.toString()}
+                />
+              <label className="description hug-top" htmlFor="img_url">
+                or enter an image url</label>
+                <span style={{fontSize:'11px', color:'#777'}} ><br/>{parentRecipe.img_url && parentRecipe.img_url.toString()}</span>
+                <input
+                  id="img_url_txt"
+                  name="img_url_txt"
+                  className=""
+                  type="text"
+                  value={this.state.img_url_text}
+                  onChange={this.onChange}
+                />
               </div>
             </li>
 
@@ -192,60 +206,63 @@ class AddDerivedRecipeForm extends Component {
                   name="prepmins"
                   className=""
                   type="text"
-                  value={this.state.prepmins}
+                  value={this.state.prepmins ? this.state.prepmins : parentRecipe.prepmins}
                   onChange={this.onChange}
-                  placeholder={this.props.recipes[parentRecipeId].prepmins}
-                   />
+                />
               </div>
             </li>
 
             <li>
-              <label className="description" htmlFor="cooktime">Cook Time (mins) </label>
+              <label className="description" htmlFor="cooktime">
+                Cook Time (mins) 
+              </label>
               <div>
                 <input
                   id="cookmins"
                   name="cookmins"
                   className=""
                   type="text"
-                  value={this.state.cookmins}
+                  value={this.state.cookmins ? this.state.cookmins : parentRecipe.cookmins}
                   onChange={this.onChange}
-                  placeholder={ parentRecipe.cookmins && parentRecipe.cookmins.toString() }
-                   />
+                />
               </div>
             </li>
 
             <li>
-              <label className="description" htmlFor="servings">Servings </label>
-              <div>
-                <textarea
+              <label className="description" htmlFor="servings">
+                Servings 
+              </label>
+              <div> <input
                   id="servings"
                   name="servings"
                   className=""
                   type="text"
-                  value={this.state.servings}
+                  value={this.state.servings ? this.state.servings : parentRecipe.servings}
                   onChange={this.onChange}
-                  placeholder={parentRecipe.servings && parentRecipe.servings.toString() }
-                ></textarea>
+                />
               </div>
             </li>
 
             <li>
-              <label className="description" htmlFor="ingredients">Ingredients </label>
+              <label className="description" htmlFor="ingredients">
+                Ingredients
+              </label>
               <div>
                 <textarea
                   id="ingredients"
                   name="ingredients"
                   className=""
-                  value={this.state.ingredients}
+                  value={this.state.desc}
                   onChange={this.onChange}
-                  placeholder={ Object.values(parentRecipe.ingredients) }
-                  >
+                >{parentRecipe.desc}
                 </textarea>
               </div>
             </li>
 
             <li>
-              <label className="description" htmlFor="directions">Directions </label>
+              <label className="description" htmlFor="directions">
+                Directions 
+              </label>
               <div>
                 <textarea
                   id="directions"
@@ -253,8 +270,7 @@ class AddDerivedRecipeForm extends Component {
                   className=""
                   value={this.state.directions}
                   onChange={this.onChange}
-                  placeholder={ Object.values(parentRecipe.directions) }
-                  >
+                >{parentRecipe.directions}
                 </textarea>
               </div>
             </li>

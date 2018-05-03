@@ -9,7 +9,13 @@ export const addRecipe = recipe =>
   ({
     type: addRecipe.toString(),
     payload: recipe
-  })
+  });
+
+  export const setActiveRecipe = recipeId =>
+  ({
+    type: setActiveRecipe.toString(),
+    payload: recipeId
+  });
 
 export const updateCategories = categories =>
   ({
@@ -31,6 +37,7 @@ export const setToken = token =>
 
 addRecipe.toString = () => 'ADD_RECIPE';
 setSearchResultRecipes.toString = () => 'SET_SEARCH_RESULTS_RECIPES';
+setActiveRecipe.toString = () => 'SET_ACTIVE_RECIPE';
 updateCategories.toString = () => 'UPDATE_CATEGORIES';
 updateIngredients.toString = () => 'UPDATE_INGREDIENTS';
 setToken.toString = () => 'SET_TOKEN';
