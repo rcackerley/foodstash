@@ -113,7 +113,7 @@ class AddDerivedRecipeForm extends Component {
       return (
         <div className="form-group">
           <select
-            name={name} defaultValue="dessert" className="selectList"
+            name={name} defaultValue={selectedCat} className="selectList"
             onChange={onChange}
           >
             {optionTags}
