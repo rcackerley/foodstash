@@ -40,10 +40,12 @@ class SearchBar extends React.Component{
     return (
       <form className="search-form">
         <input className="search" type="text" value={this.state.searchString} onChange={ event => handleChange(event)} placeholder="Search for categories, recipes, or ingredients" />
-        <button className="search-button" onClick={event =>
-          getRecipesBySearch(libraries)
-          .then(recipes => setSearchResultRecipes(recipes))
-        }>Search</button>
+        <Link to="/recipes">
+          <button className="search-button" onClick={event =>
+            getRecipesBySearch(libraries)
+            .then(recipes => setSearchResultRecipes(recipes))
+          }>Search</button>
+        </Link>
         <ul className="suggestions">
           { libraries.map((term) =>
               <Link onClick={event => {

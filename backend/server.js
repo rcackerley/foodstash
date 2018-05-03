@@ -38,14 +38,18 @@ let createCookBookInDB = (cookbook) => {
     //Write query here
 }
 
-let getRecipeFromDB = (id) => {
-  console.log(id);
-  return db.query(`SELECT * from recipes where id = ${id};`)
+let getRecipeFromDB = (id) =>
+  db.query(`SELECT * from recipes where id = ${id};`)
 
+
+let getSearchedRecipes = (queryString) => {
+  let queryBuilder = `SELECT * from recipes WHERE id IN (`
+  queryString.forEach(number => queryBuilder = queryBuilder + number + ',');
+  queryBuilder = queryBuilder.slice(0, -1);
+  queryBuilder += ');';
+  console.log(queryBuilder)
+  return db.query(queryBuilder)
 }
-
-let getSearchedRecipes = (queryString) =>
-  db.query(`SELECT * from recipes WHERE id IN ${queryString};`)
 
 //authorization
 let createToken = (userId) => {
@@ -134,12 +138,12 @@ let getRecipeByID = (req, res) => {
 }
 
 let getIdsFromLibrary = (req, res) => {
-  let queryString = '';
-  console.log(JSON.stringify(req.body))
-  let library = req.body;
-  library.map(item => queryString + ',' + item.id )
+  let queryString = [];
+  let library = req.body.searchLibrary;
+  library.map(item => queryString.push(item.id))
   getSearchedRecipes(queryString)
   .then(response => res.send(response))
+  .catch(err => res.send(err))
 }
 
 //Middleware
