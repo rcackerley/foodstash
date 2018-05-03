@@ -4,11 +4,14 @@ import Header from './Header';
 
 let RegisterScreen = () =>
     <div>
-        <Header /> 
+        <Header />
         <EnhancedForm
             initialState={{
                 email: '',
-                password: ''
+                password: '',
+                username: '',
+                firstname: '',
+                lastname: ''
             }} />
     </div>
 

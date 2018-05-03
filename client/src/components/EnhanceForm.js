@@ -28,13 +28,13 @@ const EnhanceForm = Component =>
         }
 
         render() {
-            const { initialState, ...rest } = this.props
+            const { initialState, ...rest} = this.props
             const { form } = this.state
             console.log('...', form)
             return React.createElement(Component, {
                 state: form,
                 handleSubmit: this.handleSubmit,
-                handleChange: this.handleChange
+                handleChange: this.handleChange,
             })
         }
     }
