@@ -17,7 +17,7 @@ class AddDerivedRecipeForm extends Component {
     this.state = {
       title: '',
       ver: 0,
-      image_url: '',
+      img_url: '',
       descr: '',
       user_id: 0,
       tag: '',
@@ -36,7 +36,6 @@ class AddDerivedRecipeForm extends Component {
 
   }
 
-
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -47,7 +46,7 @@ class AddDerivedRecipeForm extends Component {
    
     let recipeData = {
       title: this.state.title,
-      image_url: this.state.image_url,
+      img_url: this.state.img_url,
       descr: this.state.descr,
       tag: this.state.tag,
       prepmins: this.state.prepmins,
@@ -78,8 +77,25 @@ class AddDerivedRecipeForm extends Component {
     // this.props.addRecipe(recipeData);
   }
 
+
+  
+
+
   render() {
     let parentRecipeId = 1;
+    let parentRecipe = this.props.recipes.find(ptRecipe => ptRecipe.id === parentRecipeId);
+    console.log('## ', parentRecipe.title);
+    
+      // parentRecipe.id === parentRecipe);
+
+  //   this.props.recipes.forEach(recipe => {
+  //     recipe.find(parentRecipe => parentRecipe.id === parentRecipe)
+  // });
+
+    // console.log('parentRecipe: ', parentRecipe);
+    
+    let imageUrl = this.props.recipes[parentRecipeId].img_url && this.props.recipes[parentRecipeId].img_url.toString();
+    let picStyles = {width:'85px', height:'65px', backgroundImage:'url('+ imageUrl + ')', backgroundSize:'cover'}
     console.log('props: ', this.props);
 
     const categoryOptions = this.props.categories.map(cat =>
@@ -90,14 +106,14 @@ class AddDerivedRecipeForm extends Component {
       let selectedCat = this.props.recipes[parentRecipeId].title;
       
       const optionTags = categoryOptions.map(option => (
-        <option key={option.label} value={this.props.recipes[parentRecipeId].label}>
+        <option key={option.label} value={option.label}>
           {option.label}
         </option>
       ));
       return (
         <div className="form-group">
           <select
-            name={name} value={selectedCat}
+            name={name} defaultValue="dessert" className="selectList"
             onChange={onChange}
           >
             {optionTags}
@@ -109,7 +125,7 @@ class AddDerivedRecipeForm extends Component {
     return (
       <div className="add-recipe-form">
 
-        <h2>Add a Recipe</h2>
+        <h2>Edit a Recipe</h2>
         <form onSubmit={ event => this.onSubmit(event)}>
           <ul>
             <li>
@@ -153,14 +169,19 @@ class AddDerivedRecipeForm extends Component {
             />
 
             <li>
-              <label className="description" htmlFor="image_url">Add an Image </label>
+              <label className="description" htmlFor="img_url">Main Image </label>
+
+              
+              <div className="currentRecipePic" style={picStyles}></div>
               <div>
-                <input id="image_url"
-                  name="image_url"
+                <input id="img_url"
+                  name="img_url"
                   className=""
                   type="file"
-                  value={this.state.image_url}
-                  onChange={this.onChange} />
+                  value={this.state.img_url}
+                  onChange={this.onChange}
+                  placeholder={this.props.recipes[parentRecipeId].img_url && this.props.recipes[parentRecipeId].img_url.toString()}
+                   />
               </div>
             </li>
 
@@ -172,7 +193,9 @@ class AddDerivedRecipeForm extends Component {
                   className=""
                   type="text"
                   value={this.state.prepmins}
-                  onChange={this.onChange} />
+                  onChange={this.onChange}
+                  placeholder={this.props.recipes[parentRecipeId].prepmins}
+                   />
               </div>
             </li>
 
@@ -185,21 +208,24 @@ class AddDerivedRecipeForm extends Component {
                   className=""
                   type="text"
                   value={this.state.cookmins}
-                  onChange={this.onChange} />
+                  onChange={this.onChange}
+                  placeholder={ this.props.recipes[parentRecipeId].cookmins && this.props.recipes[parentRecipeId].cookmins.toString() }
+                   />
               </div>
             </li>
 
             <li>
               <label className="description" htmlFor="servings">Servings </label>
               <div>
-                <input
+                <textarea
                   id="servings"
                   name="servings"
                   className=""
                   type="text"
                   value={this.state.servings}
                   onChange={this.onChange}
-                />
+                  placeholder={this.props.recipes[parentRecipeId].servings && this.props.recipes[parentRecipeId].servings.toString() }
+                ></textarea>
               </div>
             </li>
 
@@ -211,7 +237,9 @@ class AddDerivedRecipeForm extends Component {
                   name="ingredients"
                   className=""
                   value={this.state.ingredients}
-                  onChange={this.onChange}>
+                  onChange={this.onChange}
+                  placeholder={ Object.values(this.props.recipes[parentRecipeId].ingredients) }
+                  >
                 </textarea>
               </div>
             </li>
@@ -224,7 +252,9 @@ class AddDerivedRecipeForm extends Component {
                   name="directions"
                   className=""
                   value={this.state.directions}
-                  onChange={this.onChange}>
+                  onChange={this.onChange}
+                  placeholder={ Object.values(this.props.recipes[parentRecipeId].directions) }
+                  >
                 </textarea>
               </div>
             </li>
