@@ -49,12 +49,11 @@ export let getRecipeById = (id) =>
 export let getRecipesBySearch = (searchLibrary) => {
   console.log(searchLibrary)
   return fetch('/search-recipes', {
+    body: JSON.stringify({searchLibrary}),
     method: 'POST',
-    body: searchLibrary,
     headers: {
       'content-type': 'application/json'
     }
   })
   .then(res => res.json())
-  .then(res => console.log(res))
 }
