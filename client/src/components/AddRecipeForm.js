@@ -5,15 +5,6 @@ import { postRecipe } from '../ajax/index';
 import store from '../store';
 import { addRecipe, setActiveRecipe } from '../actions/index';
 
-
-// let addRecipe = rootReducer.addRecipe;
-// let setActiveRecipe = rootReducer.setActiveRecipe;
-console.log('addRecipe: ', addRecipe);
-
-
-// ("title", "ver", "prepmins", "cookmins",
-//   "descr", "user_id", "ingredients", "directions", "servings"
-
 class AddRecipeForm extends Component {
   constructor(props) {
     super(props);
@@ -32,14 +23,12 @@ class AddRecipeForm extends Component {
       servings: 0,
       derived_id: 0,
       activeRecipe: 1
-
     }
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
   }
-
 
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -66,12 +55,12 @@ class AddRecipeForm extends Component {
     console.log('recipeData: ', recipeData);
 
     console.log('props: ', this.props);
+let {addRecipe,setActiveRecipe} = this.props;
 
-    store.dispatch(setActiveRecipe(2));
-    store.dispatch(addRecipe(recipeData));
+    setActiveRecipe(2);
+    addRecipe(recipeData)
 
-
-    postRecipe(recipeData)
+    postRecipe(recipeData, this.props.token.token)
 
       .then((res) => {
         console.log('res.data: ', recipeData);
@@ -86,7 +75,7 @@ class AddRecipeForm extends Component {
 
     const categoryOptions = this.props.categories.map(cat =>
       ({ label: cat.title, value: cat.id }));
-    categoryOptions.push({ label: '** Recipe Category **', value: 0 })
+    categoryOptions.unshift({ label: '** Recipe Category **', value: 0 })
 
     const SelectListGroup = ({ name, value, onChange, options }) => {
       const selectOptions = categoryOptions.map(option => (
@@ -233,9 +222,12 @@ class AddRecipeForm extends Component {
       </div>)
   }
 };
-
+let mapDispatchToProps = dispatch => ({
+  addRecipe: recipe => dispatch(addRecipe(recipe)),
+  setActiveRecipe: id => dispatch(setActiveRecipe(id))
+  })
 let mapStateToProps = state => state;
 
-export default connect(mapStateToProps, { addRecipe })(
+export default connect(mapStateToProps, mapDispatchToProps)(
   AddRecipeForm
 );
