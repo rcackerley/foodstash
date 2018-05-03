@@ -9,18 +9,26 @@ import CategoryListScreen from './components/CategoryListScreen';
 import IngredientListScreen from './components/IngredientListScreen';
 import RecipeListScreen from './components/RecipeListScreen';
 import RecipeScreen from './components/RecipeScreen';
+import AddDerivedRecipeForm from './components/AddDerivedRecipeForm';
 import AddScreen from './components/AddScreen';
-import PrimaryNav from './components/PrimaryNav';
-import SecondaryNav from './components/PrimaryNav';
+import RegisterScreen from './components/RegisterScreen';
+import LoginScreen from './components/LoginScreen';
 
 let Router = () =>
   <HashRouter>
         <Switch>
+            <Route path="/register" component={RegisterScreen} />  
+            <Route path="/login" component={LoginScreen} />  
+            <Route path="/categories" component={CategoryListScreen} />  
+            <Route path="/ingredients" component={IngredientListScreen}/> 
+            <Route path="/recipes" exact component={RecipeListScreen} />
+            <Route path="/recipes/1" component={RecipeScreen} />  
+            <Route path="/account" component={AccountScreen} />  
             <Route path="/categories" component={CategoryListScreen} />
             <Route path="/ingredients" component={IngredientListScreen}/>
             <Route path="/account" component={AccountScreen} />
-            <Route path="/recipes" component={RecipeListScreen} />
-            <Route path="/add-recipe" component={AddScreen} />
+            <Route path="/add" component={AddScreen} />
+            <Route path="/add-derived" component={AddDerivedRecipeForm} />
             <Route path="/#/recipes/:recipe"  />
         </Switch>
 </HashRouter>;

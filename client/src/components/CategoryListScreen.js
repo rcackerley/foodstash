@@ -14,7 +14,7 @@ let CategoryListScreen =  ({ categories }) =>
         <SecondaryNav />
       </div>
       <div className="flex-content">
-        <SearchBar/>
+        {/* <SearchBar/> */}
         <div className="category-list">
           {categories.map(category =>
             <CategoryCard category={category} />

@@ -13,13 +13,13 @@ let PrimaryNav = () =>
               <span>Recipes </span>
             </div>
           </Link>
-          <Link to="/categories">
+          <Link to="/add">
             <div>
               <img src={addIcon} />
               <span>Add Recipe</span>
             </div>
           </Link>
-          <Link to="/categories">
+          <Link to="/account">
             <div>
               <img src={accountIcon} />
               <span>Account</span>

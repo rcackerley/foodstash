@@ -11,7 +11,7 @@ console.log('addRecipe: ', addRecipe);
 // ("title", "ver", "prepmins", "cookmins",
 //   "descr", "user_id", "ingredients", "directions", "servings"
 
-class AddRecipeForm extends Component {
+class AddDerivedRecipeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,6 +79,7 @@ class AddRecipeForm extends Component {
   }
 
   render() {
+    let parentRecipeId = 1;
     console.log('props: ', this.props);
 
     const categoryOptions = this.props.categories.map(cat =>
@@ -106,6 +107,8 @@ class AddRecipeForm extends Component {
 
     return (
       <div className="add-recipe-form">
+
+        <h2>Add a Recipe</h2>
         <form onSubmit={ event => this.onSubmit(event)}>
           <ul>
             <li>
@@ -118,7 +121,9 @@ class AddRecipeForm extends Component {
                   type="text"
                   maxLength="255"
                   value={this.state.title}
-                  onChange={this.onChange} />
+                  onChange={this.onChange}
+                  placeholder={this.props.recipes[parentRecipeId].title}
+                   />
               </div>
             </li>
 
@@ -130,7 +135,9 @@ class AddRecipeForm extends Component {
                   name="descr"
                   className=""
                   value={this.state.desc}
-                  onChange={this.onChange}>
+                  onChange={this.onChange}
+                  placeholder={this.props.recipes[parentRecipeId].desc}
+                  >
                 </textarea>
               </div>
             </li>
@@ -234,5 +241,5 @@ class AddRecipeForm extends Component {
 let mapStateToProps = state => state;
 
 export default connect(mapStateToProps, { addRecipe })(
-  AddRecipeForm
+  AddDerivedRecipeForm
 );
