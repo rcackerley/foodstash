@@ -134,6 +134,8 @@ let getMyCookBooks = (req, res) => {
 
 let postRecipe = (req, res) => {
   let recipe = req.body
+  console.log('recipe: ', recipe);
+  
   let token = req.headers.authorization;
   let validation = tokenValidator(token);
   return (
