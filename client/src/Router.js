@@ -28,7 +28,6 @@ let Router = () =>
             <Route path="/ingredients" component={IngredientListScreen}/>
             <Route path="/account" component={AccountScreen} />
             <Route path="/add" component={AddScreen} />
-            <Route path="/add-derived" component={AddDerivedRecipeForm} />
             <Route path="/#/recipes/:recipe" />
         </Switch>
       </HashRouter>

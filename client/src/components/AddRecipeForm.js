@@ -4,9 +4,22 @@ import { connect } from 'react-redux';
 import { postRecipe } from '../ajax/index';
 import store from '../store';
 import {withRouter} from 'react-router-dom';
-import { addRecipe, setActiveRecipe } from '../actions/index';
+import { addRecipe, setActiveRecipe, updateCategories, updateRecipes } from '../actions/index';
+import { getAllCategories, getAllRecipes } from '../ajax/index';
+
+
 
 class AddRecipeForm extends Component {
+  async componentDidMount() {
+    let { updateCategories, updateRecipes } = this.props;
+    console.dir(getAllCategories);
+    let categories = await getAllCategories();
+    let recipes = await getAllRecipes();
+    console.log(categories);
+    updateCategories(categories);
+    updateRecipes(recipes);
+  }
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +39,8 @@ class AddRecipeForm extends Component {
       notes: '',
       activeRecipe: '1'
     }
-
+    
+    
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
@@ -40,8 +54,6 @@ class AddRecipeForm extends Component {
     e.preventDefault();
 
     let recipeData = {
-      
-
       title: this.state.title.toString(),
       version: this.state.version.toString(),
       prepmins: this.state.prepmins.toString(),
@@ -75,14 +87,15 @@ console.log('recipeData', recipeData);
   }
 
   render() {
-
+    console.log('recipes==', this.state.recipes, this.props.categories);
+    
     const categoryOptions = this.props.categories.map(cat =>
       ({ label: cat.name, value: cat.id }));
-    categoryOptions.unshift({ label: '** Recipe Category **', value: 0 })
-
-    const SelectListGroup = ({ name, value, onChange, options }) => {
-      const selectOptions = categoryOptions.map(option => (
-        <option key={option.label} value={option.value}>
+      categoryOptions.unshift({ label: '** Recipe Category **', value: 0 })
+      
+      const SelectListGroup = ({ name, value, onChange, options }) => {
+        const selectOptions = categoryOptions.map(option => (
+          <option key={option.label} value={option.value}>
           {option.label}
         </option>
       ));
@@ -223,11 +236,13 @@ console.log('recipeData', recipeData);
         </form>
         <div id="footer"></div>
       </div>)
-  }
-};
+      }
+  };
 let mapDispatchToProps = dispatch => ({
   addRecipe: recipe => dispatch(addRecipe(recipe)),
-  setActiveRecipe: id => dispatch(setActiveRecipe(id))
+  setActiveRecipe: id => dispatch(setActiveRecipe(id)),
+  updateCategories: categories => dispatch(updateCategories(categories)),
+  updateRecipes: recipes => dispatch(updateRecipes(recipes))
   })
 let mapStateToProps = state => ({token: state.token, categories: state.categories})
 

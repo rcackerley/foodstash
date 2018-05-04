@@ -15,10 +15,10 @@ let AddScreen =  () =>
     </div>
     <div className="flex-content">
       <Switch>
-    <Route path="/add" exact component={AddRecipeForm} />
-    <Route path="/add/derived" exact component={AddDerivedRecipeForm} />
+    <Route exact path="/add" component={AddRecipeForm} />
+    <Route exact path="/add/derived" component={AddDerivedRecipeForm} />
     </Switch>
-      <AddRecipeForm />
+      {/* <AddRecipeForm /> */}
     </div>
     <PrimaryNav />
   </div>

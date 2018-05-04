@@ -28,6 +28,11 @@ export const updateIngredients = ingredients =>
     type: updateIngredients.toString(),
     payload: ingredients
   })
+  export const updateRecipes = recipes =>
+  ({
+    type: updateRecipes.toString(),
+    payload: recipes
+  })
 export const setToken = token =>
   ({
     type: setToken.toString(),
@@ -40,4 +45,5 @@ setSearchResultRecipes.toString = () => 'SET_SEARCH_RESULTS_RECIPES';
 setActiveRecipe.toString = () => 'SET_ACTIVE_RECIPE';
 updateCategories.toString = () => 'UPDATE_CATEGORIES';
 updateIngredients.toString = () => 'UPDATE_INGREDIENTS';
+updateRecipes.toString = () => 'UPDATE_RECIPES';
 setToken.toString = () => 'SET_TOKEN';

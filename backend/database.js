@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const pg = require('pg-promise')();
-const dbConfig = 'postgres://kboot@localhost:5432/recipes';
+const dbConfig = 'postgres://kboot@localhost:3000/recipes';
 // const dbConfig = process.env.DATABASE_URL;
 const db = pg(dbConfig);
 

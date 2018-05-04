@@ -1,41 +1,51 @@
 import React, { Component } from 'react';
 import rootReducer from '../reducers/index';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { postRecipe } from '../ajax/index';
 import store from '../store';
-import { addRecipe, setActiveRecipe } from '../actions/index';
-
-
-console.log('addRecipe: ', addRecipe);
-
-
-// ("title", "ver", "prepmins", "cookmins",
-//   "descr", "user_id", "ingredients", "directions", "servings"
+import { addRecipe, setActiveRecipe, updateCategories, updateRecipes } from '../actions/index';
+import { getAllCategories, getAllRecipes } from '../ajax/index';
 
 class AddDerivedRecipeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
-      ver: 0,
-      img_url: '',
-      descr: '',
-      user_id: 0,
+      version: '0',
+      image_url: '',
+      description: '',
+      user_id: '0',
       tag: '',
-      prepmins: 0,
-      cookmins: 0,
-      directions: [],
-      categories_id: 0,
-      ingredients: [],
-      servings: 0,
-      derived_id: 0,
-      activeRecipe: 0,
+      prepmins: '0',
+      cookmins: '0',
+      directions: '',
+      categories_id: '0',
+      ingredients: '',
+      servings: '0',
+      derived_id: '0',
+      notes: '',
+      activeRecipe: '1',
       token: ''
     }
+
+
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
+  }
+
+  componentDidMount() {
+    async () => {
+      let { updateCategories, updateRecipes } = this.props;
+      let categories = await getAllCategories();
+      let recipes = await getAllRecipes();
+      console.log('categories, categories');
+      updateCategories(categories);
+      console.log('recipes==', recipes);
+      updateRecipes(recipes);
+    }
   }
 
 
@@ -61,7 +71,7 @@ class AddDerivedRecipeForm extends Component {
       user_id: "0",
       derived_id: '$1'
     }
-    let {addRecipe,setActiveRecipe, token, history} = this.props;
+    let { addRecipe, setActiveRecipe, token, history } = this.props;
 
     setActiveRecipe(2);
     addRecipe(recipeData)
@@ -73,28 +83,33 @@ class AddDerivedRecipeForm extends Component {
       }
       )
       .catch(err => console.log('DB error: ' + err));
-    // this.props.addRecipe(recipeData);
   }
 
 
   render() {
-    let parentRecipeId = this.props.activeRecipe;
+    let parentRecipeId = this.state.activeRecipe;
+    console.log('parentRecipeId: ', parentRecipeId);
 
-    let parentRecipe = 
-    this.props.recipes.find(ptRecipe => ptRecipe.id === parentRecipeId);
-    console.log('## ', parentRecipe.title);
+    let { recipes, categories } = this.props;
+    // this.props.activeRecipe ? this.props.activeRecipe : this.state.activeRecipe ;
+    console.log('recipes ', recipes);
+    console.log('categories ', categories);
+    console.log('props: ', this.props);
 
+    let parentRecipe = recipes.find(ptRecipe => ptRecipe.id.toString() === parentRecipeId.toString());
+    console.log('parentRecipe1: ', parentRecipe);
     let imageUrl = parentRecipe.img_url && parentRecipe.img_url.toString();
     let picStyles = { width: '85px', height: '65px', backgroundImage: 'url(' + imageUrl + ')', backgroundSize: 'cover' }
     console.log('props: ', this.props);
 
-    const categoryOptions = this.props.categories.map(cat =>
+    const categoryOptions = categories.map(cat =>
       ({ label: cat.title, value: cat.categories_id }));
     categoryOptions.unshift({ label: '** Recipe Category **', value: 0 })
 
     const SelectListGroup = ({ name, value, onChange, options }) => {
+      console.log('parentRecipe2: ', parentRecipe);
 
-      let selectedCat = this.props.categories.find(cat => cat.id === parentRecipe.categories_id);
+      let selectedCat = categories.find(cat => cat.id.toString() === parentRecipe.categories_id.toString());
       console.log('selectedCat: ', selectedCat);
 
 
@@ -106,7 +121,7 @@ class AddDerivedRecipeForm extends Component {
       return (
         <div className="form-group">
           <select
-            name={name} defaultValue={selectedCat.title} className="selectList"
+            name={name} defaultValue={selectedCat.name} className="selectList"
             onChange={onChange}
           >
             {optionTags}
@@ -153,8 +168,8 @@ class AddDerivedRecipeForm extends Component {
                 </textarea>
               </div>
             </li>
-            <label className="description" htmlFor="img_url">
-                Recipe Category 
+            <label className="description" htmlFor="image_url">
+              Recipe Category
               </label>
             <SelectListGroup
               id="categories_id"
@@ -166,28 +181,28 @@ class AddDerivedRecipeForm extends Component {
             />
 
             <li>
-              <label className="description" htmlFor="img_url">
-                Main Image 
+              <label className="description" htmlFor="image_url">
+                Main Image
               </label>
               <div className="currentRecipePic" style={picStyles}></div>
               <div>
-                <input id="img_url"
-                  name="img_url"
+                <input id="image_url"
+                  name="image_url"
                   className=""
                   type="file"
-                  value={this.state.img_url}
+                  value={this.state.image_url}
                   onChange={this.onChange}
-                  placeholder={parentRecipe.img_url && parentRecipe.img_url.toString()}
+                  placeholder={parentRecipe.image_url && parentRecipe.image_url.toString()}
                 />
-              <label className="description hug-top" htmlFor="img_url">
-                or enter an image url</label>
-                <span style={{fontSize:'11px', color:'#777'}} ><br/>{parentRecipe.img_url && parentRecipe.img_url.toString()}</span>
+                <label className="description hug-top" htmlFor="image_url">
+                  or enter an image url</label>
+                <span style={{ fontSize: '11px', color: '#777' }} ><br />{parentRecipe.image_url && parentRecipe.image_url.toString()}</span>
                 <input
-                  id="img_url_txt"
-                  name="img_url_txt"
+                  id="image_url_txt"
+                  name="image_url_txt"
                   className=""
                   type="text"
-                  value={this.state.img_url_text}
+                  value={this.state.image_url_text}
                   onChange={this.onChange}
                 />
               </div>
@@ -208,7 +223,7 @@ class AddDerivedRecipeForm extends Component {
 
             <li>
               <label className="description" htmlFor="cooktime">
-                Cook Time (mins) 
+                Cook Time (mins)
               </label>
               <div>
                 <input
@@ -224,16 +239,16 @@ class AddDerivedRecipeForm extends Component {
 
             <li>
               <label className="description" htmlFor="servings">
-                Servings 
+                Servings
               </label>
               <div> <input
-                  id="servings"
-                  name="servings"
-                  className=""
-                  type="text"
-                  value={this.state.servings ? this.state.servings : parentRecipe.servings}
-                  onChange={this.onChange}
-                />
+                id="servings"
+                name="servings"
+                className=""
+                type="text"
+                value={this.state.servings ? this.state.servings : parentRecipe.servings}
+                onChange={this.onChange}
+              />
               </div>
             </li>
 
@@ -255,7 +270,7 @@ class AddDerivedRecipeForm extends Component {
 
             <li>
               <label className="description" htmlFor="directions">
-                Directions 
+                Directions
               </label>
               <div>
                 <textarea
@@ -281,10 +296,12 @@ class AddDerivedRecipeForm extends Component {
 
 let mapDispatchToProps = dispatch => ({
   addRecipe: recipe => dispatch(addRecipe(recipe)),
-  setActiveRecipe: id => dispatch(setActiveRecipe(id))
-  })
-  let mapStateToProps = state => ({token: state.token, categories: state.categories});
+  setActiveRecipe: id => dispatch(setActiveRecipe(id)),
+  updateCategories: categories => dispatch(updateCategories(categories)),
+  updateRecipes: recipes => dispatch(updateRecipes(recipes))
+})
+let mapStateToProps = state => ({ token: state.token, recipes: state.recipes, categories: state.categories, activeRecipe: state.activeRecipe })
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
   AddDerivedRecipeForm
-);
+));
