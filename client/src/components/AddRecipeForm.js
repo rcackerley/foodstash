@@ -139,7 +139,7 @@ class AddRecipeForm extends Component {
                 <input id="image_url"
                   name="image_url"
                   className=""
-                  type="file"
+                  
                   value={this.state.image_url}
                   onChange={this.onChange} />
               </div>
