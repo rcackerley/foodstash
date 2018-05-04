@@ -19,7 +19,7 @@ class IngredientListScreen extends Component {
   }
  
   render() {
-    let { ingredients } = this.props;
+    let { ingredients, match } = this.props;
     return (
       <div className="flex-app">
         <div>
@@ -30,7 +30,7 @@ class IngredientListScreen extends Component {
           <SecondaryNav />
           <div className="ingredient-list">
             {ingredients.map(ingredient =>
-              <IngredientCard ingredient={ingredient} />
+              <IngredientCard match={match} ingredient={ingredient} />
             )}
           </div>
         </div>

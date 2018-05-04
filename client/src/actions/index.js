@@ -34,8 +34,6 @@ export const updateIngredients = ingredients =>
 export const updateUser = async (dispatch, token) => {
     try {
       let userData = await getUserData(token.token);
-      console.log('asdasda');
-      console.dir(userData);
       dispatch({
         type: updateUser.toString(),
         payload: (userData && userData[0])? userData[0] : null

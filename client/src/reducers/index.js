@@ -3,7 +3,7 @@ import db from './db'
 import {setSearchResultRecipes, addRecipe, setToken, updateCategories, updateIngredients, setActiveRecipe, updateUser} from '../actions/index';
 
 const initialState = {
-  recipes: db.recipes,
+  recipes: [db.recipes],
   categories: [],
   ingredients: [],
   token: null,

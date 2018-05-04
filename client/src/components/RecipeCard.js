@@ -1,7 +1,9 @@
 import React from 'react';
 import Stars from './Stars';
+import { Link } from 'react-router-dom';
 
-let RecipeCard = ({ recipe }) =>
+let RecipeCard = ({ recipe, match }) =>
+    <Link className="ingredient-card-link" to={`/recipes/${recipe.id}`} >
     <div className="recipe-card">
         <img className="recipe-hero" src={recipe.image_url} />     
         <div className="recipe-card-right">
@@ -20,5 +22,6 @@ let RecipeCard = ({ recipe }) =>
             </div>
         </div>
     </div>
+    </Link>
 
 export default RecipeCard;

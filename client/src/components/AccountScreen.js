@@ -13,8 +13,9 @@ class AccountScreen extends Component {
 
   async componentDidMount() {
     let token = localStorage.getItem('token');
+    let parsedToken = JSON.parse(token);
     console.log('its a token');
-    console.log(token);
+    console.log(parsedToken.token);
     
   }
   async componentDidUpdate(prevProps, prevState, snapshot) {
