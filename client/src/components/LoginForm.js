@@ -30,6 +30,7 @@ export const LoginForm = ({ state, handleSubmit, handleChange, history }) =>
           event => signIn({email: state.email, password: state.password})
           .then(token => setToken(token))
           .then(res => history.push('/categories'))
+          .catch(err => console.log(err))
         }>Sign In</button>
         <br />
         <Link className="create-account-btn" to="/register">Create Account</Link>

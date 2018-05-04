@@ -26,22 +26,25 @@ let searchTerms = (req, res) =>
   .then(terms => res.send(terms))
   .catch(err => res.send(err))
 
-let postRecipeToDB = (recipe) =>
-  db.query(`INSERT INTO "public"."recipes"("title", "ver", "prepmins", "cookmins",
-  "descr", "user_id", "ingredients", "directions", "servings")
-  VALUES('${recipe.title}', ${recipe.ver}, ${recipe.prepmins}, ${recipe.cookmins}, '${recipe.descr}', ${recipe.user_id},
-  '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings})
-  RETURNING "id", "title", "ver", "derived_id", "prepmins", "cookmins", "createdon",
-  "descr", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
+let postRecipeToDB = (recipe, userId) => {
+  console.log(recipe.title, recipe.ver, recipe.prepmins, recipe.cookmins, recipe.descr, userId )
+  return (
+    db.query(`INSERT INTO "public"."recipes"("title", "version", "prepmins", "cookmins",
+    "description", "user_id", "ingredients", "directions", "servings", "derived_id", "image_url", tag)
+    VALUES('${recipe.title}',${recipe.ver}, ${recipe.prepmins}, ${recipe.cookmins}, '${recipe.descr}', ${userId},
+    '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings}, '$1', 'google.com', 'none')
+    RETURNING "id", "title", "version", "derived_id", "prepmins", "cookmins",
+    "description", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
+  )
+}
 
-//new recipe  
+//new recipe
 let postNewRecipeToDB = (recipe) =>
-  db.query(`INSERT INTO "public"."recipes"("title", "ver", "prepmins", "cookmins",
-  "descr", "user_id", "ingredients", "directions", "servings")
-  VALUES('${recipe.title}', '1', ${recipe.prepmins}, ${recipe.cookmins}, '${recipe.descr}', ${recipe.user_id},
-  '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings})
-  RETURNING "id", "title", "ver", "derived_id", "prepmins", "cookmins", "createdon",
-  "descr", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
+  db.query(`INSERT INTO "public"."recipes"("title", "version", "derived_id",
+  "prepmins", "cookmins", "description", "user_id", "directions", "servings",
+  "image_url") VALUES('Robby''s Guac', 1, '$1', 20, 20, 'desc', 1, 'dadauhduah', 2, 'hdaihdah')
+  RETURNING "id", "title", "version", "derived_id", "prepmins", "cookmins", "description", "tag", "user_id", "directions", "servings", "image_url", "categories_id", "ingredients", "notes";
+`)
 
 //post new recipe from old recipes
 let postForkedRecipeToDB = (recipe) =>
@@ -141,14 +144,12 @@ let getMyCookBooks = (req, res) => {
 let postRecipe = (req, res) => {
   let recipe = req.body
   console.log('recipe: ', recipe);
-  
   let token = req.headers.authorization;
   let validation = tokenValidator(token);
-  return (
-    postRecipeToDB(recipe)
+  validation &&
+    postRecipeToDB(recipe, validation.userId)
     .then(response => res.send(response))
     .catch(err => res.send(err))
-  )
 }
 
 let postCookBook = (req, res) => {

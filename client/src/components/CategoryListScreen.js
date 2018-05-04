@@ -15,9 +15,6 @@ class CategoryListScreen extends Component {
     let categories = await getAllCategories();
     updateCategories(categories);
   }
-  async doSomething() {
-    
-  }
 
   render() {
     let { categories } = this.props;
