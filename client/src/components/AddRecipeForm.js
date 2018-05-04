@@ -3,6 +3,7 @@ import rootReducer from '../reducers/index';
 import { connect } from 'react-redux';
 import { postRecipe } from '../ajax/index';
 import store from '../store';
+import {withRouter} from 'react-router-dom';
 import { addRecipe, setActiveRecipe } from '../actions/index';
 
 class AddRecipeForm extends Component {
@@ -17,9 +18,9 @@ class AddRecipeForm extends Component {
       tag: '',
       prepmins: 0,
       cookmins: 0,
-      directions: [],
+      directions: '',
       categories_id: 0,
-      ingredients: [],
+      ingredients: '',
       servings: 0,
       derived_id: 0,
       activeRecipe: 1
@@ -48,22 +49,19 @@ class AddRecipeForm extends Component {
       categories_id: this.state.categories_id,
       ingredients: this.state.ingredients,
       servings: this.state.servings,
-      ver: 0,
-      user_id: 0,
-      derived_id: 0
+      ver: "0",
+      user_id: "0",
+      derived_id: '$1'
     }
-    console.log('recipeData: ', recipeData);
-
-    console.log('props: ', this.props);
-let {addRecipe,setActiveRecipe} = this.props;
+    let {addRecipe,setActiveRecipe, token, history} = this.props;
 
     setActiveRecipe(2);
     addRecipe(recipeData)
 
-    postRecipe(recipeData, this.props.token.token)
+    postRecipe(recipeData, token.token)
 
       .then((res) => {
-        console.log('res.data: ', recipeData);
+        history.push('/recipes')
       }
       )
       .catch(err => console.log('DB error: ' + err));
@@ -71,7 +69,6 @@ let {addRecipe,setActiveRecipe} = this.props;
   }
 
   render() {
-    console.log('props: ', this.props);
 
     const categoryOptions = this.props.categories.map(cat =>
       ({ label: cat.title, value: cat.id }));
@@ -226,8 +223,8 @@ let mapDispatchToProps = dispatch => ({
   addRecipe: recipe => dispatch(addRecipe(recipe)),
   setActiveRecipe: id => dispatch(setActiveRecipe(id))
   })
-let mapStateToProps = state => state;
+let mapStateToProps = state => ({token: state.token, categories: state.categories})
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
   AddRecipeForm
-);
+));
