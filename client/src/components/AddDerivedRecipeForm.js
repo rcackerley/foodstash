@@ -45,11 +45,10 @@ class AddDerivedRecipeForm extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    console.log('hey');
 
     let recipeData = {
       title: this.state.title,
-      img_url: this.state.img_url,
+      image_url: this.state.image_url,
       descr: this.state.descr,
       tag: this.state.tag,
       prepmins: this.state.prepmins,
@@ -58,36 +57,27 @@ class AddDerivedRecipeForm extends Component {
       categories_id: this.state.categories_id,
       ingredients: this.state.ingredients,
       servings: this.state.servings,
-      ver: 0,
-      user_id: 0,
-      derived_id: 0
+      ver: "0",
+      user_id: "0",
+      derived_id: '$1'
     }
-    console.log('recipeData: ', recipeData);
-
-    console.log('props: ', this.props);
-
-    let {addRecipe,setActiveRecipe} = this.props;
+    let {addRecipe,setActiveRecipe, token, history} = this.props;
 
     setActiveRecipe(2);
     addRecipe(recipeData)
 
-    postRecipe(recipeData, this.props.token.token)
-      .then(res =>
-        store.dispatch({
-          type: addRecipe,
-          payload: res.data
-        })
-      )
+    postRecipe(recipeData, token.token)
+
       .then((res) => {
-        console.log('res.data: ', recipeData);
+        history.push('/recipes')
       }
       )
       .catch(err => console.log('DB error: ' + err));
+    // this.props.addRecipe(recipeData);
   }
 
 
   render() {
-    let token = this.props.token.token;
     let parentRecipeId = this.props.activeRecipe;
 
     let parentRecipe = 
@@ -293,7 +283,7 @@ let mapDispatchToProps = dispatch => ({
   addRecipe: recipe => dispatch(addRecipe(recipe)),
   setActiveRecipe: id => dispatch(setActiveRecipe(id))
   })
-let mapStateToProps = state => state;
+  let mapStateToProps = state => ({token: state.token, categories: state.categories});
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   AddDerivedRecipeForm

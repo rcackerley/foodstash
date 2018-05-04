@@ -3,6 +3,7 @@ import rootReducer from '../reducers/index';
 import { connect } from 'react-redux';
 import { postRecipe } from '../ajax/index';
 import store from '../store';
+import {withRouter} from 'react-router-dom';
 import { addRecipe, setActiveRecipe } from '../actions/index';
 
 class AddRecipeForm extends Component {
@@ -10,20 +11,20 @@ class AddRecipeForm extends Component {
     super(props);
     this.state = {
       title: '',
-      version: 0,
-      prepmins: 0,
-      cookmins: 0,
-      description: '',
-      tag: '',
-      user_id: 0,
-      ingredients: [],
-      directions: [],
-      servings: 0,
+      version: '0',
       image_url: '',
-      categories_id: 0,
+      description: '',
+      user_id: '0',
+      tag: '',
+      prepmins: '0',
+      cookmins: '0',
+      directions: '',
+      categories_id: '0',
+      ingredients: '',
+      servings: '0',
+      derived_id: '0',
       notes: '',
-      derived_id: 0,
-      activeRecipe: 1
+      activeRecipe: '1'
     }
 
     this.onChange = this.onChange.bind(this);
@@ -39,6 +40,8 @@ class AddRecipeForm extends Component {
     e.preventDefault();
 
     let recipeData = {
+      
+
       title: this.state.title.toString(),
       version: this.state.version.toString(),
       prepmins: this.state.prepmins.toString(),
@@ -52,21 +55,19 @@ class AddRecipeForm extends Component {
       image_url: this.state.image_url.toString(),
       categories_id: this.state.categories_id.toString(),
       notes: this.state.notes.toString(),
-      derived_id: this.state.derived_id.toString(),
-      activeRecipe: this.state.activeRecipe.toString()
+      activeRecipe: this.state.activeRecipe.toString(),
+      derived_id: '$1'
     }
-    console.log('recipeData: ', recipeData);
-
-    console.log('props: ', this.props);
-let {addRecipe,setActiveRecipe} = this.props;
+    let {addRecipe,setActiveRecipe, token, history} = this.props;
 
     setActiveRecipe(2);
     addRecipe(recipeData)
+console.log('recipeData', recipeData);
 
-    postRecipe(recipeData, this.props.token.token)
+    postRecipe(recipeData, token.token)
 
       .then((res) => {
-        console.log('res.data: ', recipeData);
+        history.push('/recipes')
       }
       )
       .catch(err => console.log('DB error: ' + err));
@@ -74,10 +75,9 @@ let {addRecipe,setActiveRecipe} = this.props;
   }
 
   render() {
-    console.log('props: ', this.props);
 
     const categoryOptions = this.props.categories.map(cat =>
-      ({ label: cat.title, value: cat.id }));
+      ({ label: cat.name, value: cat.id }));
     categoryOptions.unshift({ label: '** Recipe Category **', value: 0 })
 
     const SelectListGroup = ({ name, value, onChange, options }) => {
@@ -148,16 +148,6 @@ let {addRecipe,setActiveRecipe} = this.props;
                   type="file"
                   value={this.state.image_url}
                   onChange={this.onChange} />
-                  <label className="description hug-top" htmlFor="img_url">
-                or enter an image url</label>
-                <input
-                  id="img_url_txt"
-                  name="img_url_txt"
-                  className=""
-                  type="text"
-                  value={this.state.img_url_text}
-                  onChange={this.onChange}
-                />
               </div>
             </li>
 
@@ -239,8 +229,8 @@ let mapDispatchToProps = dispatch => ({
   addRecipe: recipe => dispatch(addRecipe(recipe)),
   setActiveRecipe: id => dispatch(setActiveRecipe(id))
   })
-let mapStateToProps = state => state;
+let mapStateToProps = state => ({token: state.token, categories: state.categories})
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(
   AddRecipeForm
-);
+));

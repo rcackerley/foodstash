@@ -66,6 +66,7 @@ export const RegisterForm = ({ state, handleSubmit, handleChange, history }) =>
           .then(token => {localStorage.setItem('token', JSON.stringify(token)); return token})
           .then(token => setToken(token))
           .then(res => history.push('/categories'))
+          .catch(err => console.log(err))
           } >Create Account</button>
         <br />
         <Link className="login-btn" to="/login">Login</Link>
