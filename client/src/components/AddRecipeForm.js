@@ -10,17 +10,18 @@ class AddRecipeForm extends Component {
     super(props);
     this.state = {
       title: '',
-      ver: 0,
-      image_url: '',
-      descr: '',
-      user_id: 0,
-      tag: '',
+      version: 0,
       prepmins: 0,
       cookmins: 0,
-      directions: [],
-      categories_id: 0,
+      description: '',
+      tag: '',
+      user_id: 0,
       ingredients: [],
+      directions: [],
       servings: 0,
+      image_url: '',
+      categories_id: 0,
+      notes: '',
       derived_id: 0,
       activeRecipe: 1
     }
@@ -38,19 +39,21 @@ class AddRecipeForm extends Component {
     e.preventDefault();
 
     let recipeData = {
-      title: this.state.title,
-      image_url: this.state.image_url,
-      descr: this.state.descr,
-      tag: this.state.tag,
-      prepmins: this.state.prepmins,
-      cookmins: this.state.cookmins,
-      directions: this.state.directions,
-      categories_id: this.state.categories_id,
-      ingredients: this.state.ingredients,
-      servings: this.state.servings,
-      ver: 0,
-      user_id: 0,
-      derived_id: 0
+      title: this.state.title.toString(),
+      version: this.state.version.toString(),
+      prepmins: this.state.prepmins.toString(),
+      cookmins: this.state.cookmins.toString(),
+      description: this.state.description.toString(),
+      tag: this.state.tag.toString(),
+      user_id: this.state.user_id.toString(),
+      ingredients: this.state.ingredients.toString(),
+      directions: this.state.directions.toString(),
+      servings: this.state.servings.toString(),
+      image_url: this.state.image_url.toString(),
+      categories_id: this.state.categories_id.toString(),
+      notes: this.state.notes.toString(),
+      derived_id: this.state.derived_id.toString(),
+      activeRecipe: this.state.activeRecipe.toString()
     }
     console.log('recipeData: ', recipeData);
 
@@ -145,6 +148,16 @@ let {addRecipe,setActiveRecipe} = this.props;
                   type="file"
                   value={this.state.image_url}
                   onChange={this.onChange} />
+                  <label className="description hug-top" htmlFor="img_url">
+                or enter an image url</label>
+                <input
+                  id="img_url_txt"
+                  name="img_url_txt"
+                  className=""
+                  type="text"
+                  value={this.state.img_url_text}
+                  onChange={this.onChange}
+                />
               </div>
             </li>
 

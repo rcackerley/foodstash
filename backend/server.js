@@ -27,12 +27,13 @@ let searchTerms = (req, res) =>
   .catch(err => res.send(err))
 
 let postRecipeToDB = (recipe) =>
-  db.query(`INSERT INTO "public"."recipes"("title", "ver", "prepmins", "cookmins",
-  "descr", "user_id", "ingredients", "directions", "servings")
-  VALUES('${recipe.title}', ${recipe.ver}, ${recipe.prepmins}, ${recipe.cookmins}, '${recipe.descr}', ${recipe.user_id},
-  '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings})
-  RETURNING "id", "title", "ver", "derived_id", "prepmins", "cookmins", "createdon",
-  "descr", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
+  db.query(`INSERT INTO "public"."recipes"("title", "version", "prepmins", "cookmins",
+  "description", "tag", "user_id", "ingredients", "directions", "servings", "image_url", "categories_id", "notes")
+  VALUES('${recipe.title}', ${recipe.version}, ${recipe.prepmins}, ${recipe.cookmins}, '${recipe.description}', ${recipe.user_id},
+  '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings}, ${recipe.image_url}, ${recipe.categories_id}, ${recipe.notes})
+  RETURNING "id", "title", "version", "derived_id", "prepmins", "cookmins", "createdon",
+  "description", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
+
 
 //new recipe  
 let postNewRecipeToDB = (recipe) =>
