@@ -52,7 +52,6 @@ class RecipeScreen extends React.Component {
                 <div className="r-screen-description">
                     <p>{recipe.desc} </p>
                     <div className="r-screen-tag-container">
-                        
                             {recipe.tags && recipe.tags.map(tag =>
                             <div className="r-screen-tag">
                                 <span>{tag}</span>

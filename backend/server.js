@@ -32,7 +32,7 @@ let postRecipeToDB = (recipe, userId) => {
     db.query(`INSERT INTO "public"."recipes"("title", "version", "prepmins", "cookmins",
     "description", "user_id", "ingredients", "directions", "servings", "derived_id", "image_url", tag)
     VALUES('${recipe.title}',${recipe.ver}, ${recipe.prepmins}, ${recipe.cookmins}, '${recipe.descr}', ${userId},
-    '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings}, '$1', 'google.com', 'none')
+    '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings}, '${null}', '${recipe.image_url}', 'none')
     RETURNING "id", "title", "version", "derived_id", "prepmins", "cookmins",
     "description", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
   )
@@ -101,6 +101,18 @@ let validateCredentials = (res, email, password) => {
   .then(userId => createToken(userId))
   .then(token => { console.log(token); return res.send(token)})
   .catch(error => res.send(error));
+}
+
+let getUserDataQuery = (userId) =>
+  db.query(`SELECT * from users where id = ${userId};`)
+    
+let getUserData = async (req, res) => {
+  let token = req.headers.authorization;
+  let result = tokenValidator(token);
+  console.log('yo');
+  console.log(result);
+  let userData = await getUserDataQuery(result.userId);
+  res.send(userData);
 }
 
 let tokenValidator = (token) =>
@@ -182,6 +194,7 @@ let getIdsFromLibrary = (req, res) => {
 
 //Middleware
 app.use(bodyParser.json());
+app.get('/get-user', getUserData)
 app.get('/all-categories', getAllCategories)
 app.get('/all-ingredients', getAllIngredients)
 app.get('/recipes', getMyRecipes)
