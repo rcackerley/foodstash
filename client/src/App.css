@@ -2,7 +2,7 @@ body {
   font-size: 15px;
   line-height: 1.5;
   color: #353535;
-  overflow-y: hidden;
+  overflow-y: auto;
   
   /* font-family: 'Dosis', sans-serif;
   font-family: 'Muli', sans-serif; */
@@ -389,7 +389,7 @@ button {
 .add-recipe-form label.hug-top {
   margin-top: 1px;
 }
-.add-recipe-form input{
+.add-recipe-form input {
  height:20px;
  width: calc(100% - 5px);
 }

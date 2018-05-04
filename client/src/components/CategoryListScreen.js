@@ -19,9 +19,6 @@ class CategoryListScreen extends Component {
     console.dir(updateCategories);
     updateCategories(categories);
   }
-  async doSomething() {
-    
-  }
 
   render() {
     let { categories } = this.props;
