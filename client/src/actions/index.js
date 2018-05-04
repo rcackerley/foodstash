@@ -1,3 +1,5 @@
+import {getUserData} from '../ajax/index';
+
 
 export const setSearchResultRecipes = recipes =>
   ({
@@ -28,11 +30,25 @@ export const updateIngredients = ingredients =>
     type: updateIngredients.toString(),
     payload: ingredients
   })
+
+export const updateUser = async (dispatch, token) => {
+    try {
+      let userData = await getUserData(token.token);
+      dispatch({
+        type: updateUser.toString(),
+        payload: (userData && userData[0])? userData[0] : null
+      });
+    } catch (e) {
+      console.error(e);
+    }
+}
+
   export const updateRecipes = recipes =>
   ({
     type: updateRecipes.toString(),
     payload: recipes
   })
+
 export const setToken = token =>
   ({
     type: setToken.toString(),
@@ -47,3 +63,4 @@ updateCategories.toString = () => 'UPDATE_CATEGORIES';
 updateIngredients.toString = () => 'UPDATE_INGREDIENTS';
 updateRecipes.toString = () => 'UPDATE_RECIPES';
 setToken.toString = () => 'SET_TOKEN';
+updateUser.toString = () => 'UPDATE_USER';

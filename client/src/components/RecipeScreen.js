@@ -27,7 +27,7 @@ class RecipeScreen extends React.Component {
         <div className="flex-content">
             <div className="r-screen">
                 <div className="r-screen-hero">
-                    <img src={recipe.img_url} />
+                    <img src={recipe.image_url} />
                 </div>
                 <div className="r-screen-info">
                     <span className="r-screen-title">{recipe.title}</span>
@@ -52,7 +52,8 @@ class RecipeScreen extends React.Component {
                 <div className="r-screen-description">
                     <p>{recipe.desc} </p>
                     <div className="r-screen-tag-container">
-                        {recipe.tags.map(tag =>
+                        
+                            {recipe.tags && recipe.tags.map(tag =>
                             <div className="r-screen-tag">
                                 <span>{tag}</span>
                             </div>
@@ -69,11 +70,12 @@ class RecipeScreen extends React.Component {
                         <div key="cTab">Notes</div>
                     </Tabs>
                     <div className="tab-container">
-                    <ol>
+                    <p>{content[this.state.active] } </p>
+                    {/* <ol>
                     {content[this.state.active].map(tag =>
                       <li> {tag} </li>
                     )}         
-                    </ol>
+                    </ol> */}
                     </div>
                 </div>
             </div>
