@@ -23,6 +23,12 @@ export let getMyCookBooks = (token) =>
   })
   .then(res => res.json())
 
+export let getUserData = (token) =>
+  fetch('/get-user', {
+    headers: { authorization: token }
+  })
+    .then(res => res.json())
+
 export let postRecipe = (recipe, token) =>
   fetch('/recipes', {
     body: JSON.stringify(recipe),

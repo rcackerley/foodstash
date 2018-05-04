@@ -12,11 +12,7 @@ import { getAllCategories } from '../ajax/index';
 class CategoryListScreen extends Component {
   async componentDidMount() {
     let { updateCategories } = this.props;
-    console.log('hi');
-    console.dir(getAllCategories);
     let categories = await getAllCategories();
-    console.log(categories);
-    console.dir(updateCategories);
     updateCategories(categories);
   }
   async doSomething() {
