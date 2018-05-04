@@ -98,7 +98,7 @@ class AddDerivedRecipeForm extends Component {
 
     let parentRecipe = recipes.find(ptRecipe => ptRecipe.id.toString() === parentRecipeId.toString());
     console.log('parentRecipe1: ', parentRecipe);
-    let imageUrl = parentRecipe.img_url && parentRecipe.img_url.toString();
+    let imageUrl = parentRecipe.image_url && parentRecipe.image_url.toString();
     let picStyles = { width: '85px', height: '65px', backgroundImage: 'url(' + imageUrl + ')', backgroundSize: 'cover' }
     console.log('props: ', this.props);
 
