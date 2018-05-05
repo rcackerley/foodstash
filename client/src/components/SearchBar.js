@@ -31,21 +31,14 @@ class SearchBar extends React.Component{
       this.setState({searchString: event.target.value});
     }
 
-    if (searchString.length > 0){
-      libraries = libraries.filter((term) => {
-        return term.title.toLowerCase().match( searchString );
-      });
-
-    }
-
+    if (searchString.length > 0) libraries = libraries.filter((c) => c.title.toLowerCase().match(searchString));
+    // getRecipesBySearch(libraries)
+    //   .then(recipes => setSearchResultRecipes(recipes))
     return (
       <div className="search-form-container">
       <form className="search-form">
-        <input className="search" type="text" value={this.state.searchString} onKeyPress={event => {
-          if (event.key == 'Enter') {
-          getRecipesBySearch(libraries)
-            .then(recipes => setSearchResultRecipes(recipes))}}} onChange={ event => handleChange(event)} placeholder="Search for categories, recipes, or ingredients" />
-        <Link to="/recipes">
+        <input className="search" type="text" value={this.state.searchString}  onChange={ event => handleChange(event)} placeholder="Search for categories, recipes, or ingredients" />
+          <Link to={`/recipes/search/_${this.state.searchString}`}>
           <button className="search-button" >Search</button>
         </Link>
         { searchString.length >= 1 &&
@@ -54,7 +47,7 @@ class SearchBar extends React.Component{
               <Link onClick={event => {
                 return getRecipeById(term.id)
                 .then(recipe => setSearchResultRecipes(recipe))
-              }} to="/recipes"><li>{term.title}</li></Link>
+              }} to={`/recipes/${term.id}`}><li>{term.title}</li></Link>
           ) }  
 
         </ul>

@@ -29,8 +29,8 @@ class IngredientListScreen extends Component {
         <div className="flex-content">
           <SecondaryNav />
           <div className="ingredient-list">
-            {ingredients.map(ingredient =>
-              <IngredientCard match={match} ingredient={ingredient} />
+            {ingredients.map((ingredient, i) =>
+              <IngredientCard key={`${ingredient.id}_${i}`} match={match} ingredient={ingredient} />
             )}
           </div>
         </div>

@@ -8,23 +8,38 @@ import PrimaryNav from './PrimaryNav';
 import Header from './Header';
 import Stars from './Stars';
 import Tabs from './Tabs';
+import { getRecipeByIdAC } from '../actions/index';
 
 class RecipeScreen extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { active: "aTab" };
+        this.state = { active: "aTab", isLoading: true, content: {} };
+    }
+    componentDidMount() {
+        let { recipeId } = this.props.match.params;
+        getRecipeByIdAC(this.props.dispatch, recipeId);
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.isLoading && this.props.recipe !== prevProps.recipe) {
+            this.setState({ isLoading: false });
+            let { recipe } = this.props;
+            let content = {
+                aTab: recipe.ingredients,
+                bTab: recipe.directions,
+                cTab: recipe.notes
+            };
+            this.setState({ content: content });
+        }
     }
     render() {
+        let {content} = this.state;
+        let { isLoading } = this.state;
         let {recipe} = this.props;
-        const content = {
-            aTab: recipe.ingredients,
-            bTab: recipe.directions,
-            cTab: recipe.notes
-        };
     return (
     <div className="flex-app">
         <Header />
         <div className="flex-content">
+        { isLoading ? <h1>loading </h1> : 
             <div className="r-screen">
                 <div className="r-screen-hero">
                     <img src={recipe.image_url} />
@@ -69,15 +84,17 @@ class RecipeScreen extends React.Component {
                         <div key="cTab">Notes</div>
                     </Tabs>
                     <div className="tab-container">
-                    <p>{content[this.state.active] } </p>
-                    {/* <ol>
-                    {content[this.state.active].map(tag =>
-                      <li> {tag} </li>
-                    )}         
-                    </ol> */}
+                        <p>{content[this.state.active]} </p>
+                        {/* <ol>
+            {content[this.state.active].map(tag =>
+                <li> {tag} </li>
+            )}         
+            </ol> */}
                     </div>
                 </div>
+          
             </div>
+            }
         </div>
         <PrimaryNav />
     </div>
@@ -86,9 +103,9 @@ class RecipeScreen extends React.Component {
 }
 
 let mapStateToProps = (state, props) => {
+    console.log('heyheyyoyo')
     let { recipes } = state;
-    let firstRecipe = recipes[0];
-    return { recipe: firstRecipe };
+    return { recipe: recipes[0] }; 
 };
 
 let RecipeScreenState = connect(

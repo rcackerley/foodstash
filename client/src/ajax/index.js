@@ -61,9 +61,21 @@ export let getRecipeById = (id) =>
   })
   .then(res => res.json())
 
-export let getRecipesBySearch = (searchLibrary) =>
+export let getRecipesByCategory = (id) => {
+ console.log('inside fetch');
+  return fetch('/recipe-by-category', {
+    method: 'GET',
+    headers: {
+       id: id,
+      'content-type': 'application/json'
+    }
+  })
+  .then(res => res.json())
+}
+
+export let getRecipesBySearch = (searchString) =>
   fetch('/search-recipes', {
-    body: JSON.stringify({searchLibrary}),
+    body: JSON.stringify({ searchString }),
     method: 'POST',
     headers: {
       'content-type': 'application/json'

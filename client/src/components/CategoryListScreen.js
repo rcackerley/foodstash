@@ -27,8 +27,8 @@ class CategoryListScreen extends Component {
         <div className="flex-content">
           <SecondaryNav />
           <div className="category-list">
-            {categories.map(category =>
-              <CategoryCard category={category} />
+            {categories.map((category, i) =>
+              <CategoryCard key={`${category.id}_${i}`} category={category} />
             )}
           </div>
         </div>

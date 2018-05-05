@@ -8,7 +8,7 @@ class TokenFromLocal extends React.Component {
   componentDidMount() {
     let {setToken} = this.props;
     let token = getTokenFromLocalStorage();
-    setToken(token)
+    setToken(token);
   }
 
   render() {

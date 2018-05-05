@@ -26,11 +26,12 @@ export const LoginForm = ({ state, handleSubmit, handleChange, history }) =>
                 required="" />
         </div>
         <br />
-        <button onClick={
-          event => signIn({email: state.email, password: state.password})
-          .then(token => setToken(token))
-          .then(res => history.push('/categories'))
-          .catch(err => console.log(err))
+        <button onClick={event => 
+            signIn({email: state.email, password: state.password})
+                .then(token => { localStorage.setItem('token', JSON.stringify(token)); return token })
+                .then(token => { console.log(token); return setToken(token)})
+                .then(res => history.push('/categories'))
+                .catch(err => console.log(err))
         }>Sign In</button>
         <br />
         <Link className="create-account-btn" to="/register">Create Account</Link>

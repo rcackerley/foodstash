@@ -13,23 +13,22 @@ import AddDerivedRecipeForm from './components/AddDerivedRecipeForm';
 import AddScreen from './components/AddScreen';
 import RegisterScreen from './components/RegisterScreen';
 import LoginScreen from './components/LoginScreen';
+import PrivateRoute from './components/PrivateRoute';
 
 let Router = () =>
       <HashRouter>
         <Switch>
             <Route path="/register" component={RegisterScreen} />
             <Route path="/login" component={LoginScreen} />
-            <Route path="/categories" component={CategoryListScreen} />
-            <Route path="/ingredients" component={IngredientListScreen}/>
-            <Route path="/recipes" exact component={RecipeListScreen} />
-            <Route path="/recipes/1" component={RecipeScreen} />
-            <Route path="/account" component={AccountScreen} />
-            <Route path="/categories" component={CategoryListScreen} />
-            <Route path="/ingredients" component={IngredientListScreen}/>
-            <Route path="/account" component={AccountScreen} />
-            <Route path="/add" component={AddScreen} />
-            <Route path="/add-derived" component={AddDerivedRecipeForm} />
-            <Route path="/recipes/:recipeId" exact component={RecipeScreen} />
+            <PrivateRoute path="/ingredients" component={IngredientListScreen}/>
+            <PrivateRoute path="/recipes/:type/:id" exact component={RecipeListScreen} />
+            <PrivateRoute path="/account" component={AccountScreen} />
+            <PrivateRoute path="/categories" exact component={CategoryListScreen} />
+            <PrivateRoute path="/ingredients" component={IngredientListScreen}/>
+            <PrivateRoute path="/account" component={AccountScreen} />
+            <PrivateRoute path="/add" component={AddScreen} />
+            <PrivateRoute path="/add-derived" component={AddDerivedRecipeForm} />
+            <PrivateRoute path="/recipes/:recipeId" exact component={RecipeScreen} />
         </Switch>
       </HashRouter>
 

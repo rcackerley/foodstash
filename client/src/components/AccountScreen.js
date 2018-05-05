@@ -16,21 +16,19 @@ class AccountScreen extends Component {
     let parsedToken = JSON.parse(token);
     console.log('its a token');
     console.log(parsedToken.token);
-    
+    updateUser(this.props.dispatch, parsedToken.token);
   }
+
   async componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.token && (this.props.token !== prevProps.token)) {
-      console.log('asd');
-        updateUser(this.props.dispatch, this.props.token);
     }
   }
 
   render() {
     let { user } = this.props;
-
     let userData = {
-      firstname: (user && user.firstname)? user.firstname : 'No Name',
-      lastname: (user && user.lastname) ? user.lastname : 'No Name',
+      firstname: (user && user.firstname)? user.firstname : ' ',
+      lastname: (user && user.lastname) ? user.lastname : ' ',
 
     };
 
@@ -80,6 +78,7 @@ class AccountScreen extends Component {
             <Link to="/categories"><span> Favorited Recipes </span> </Link>
             <Link to="/categories"><span> Shopping list </span> </Link>
             <Link to="/categories"><span> Settings </span> </Link>
+            <Link onClick={ () => {localStorage.removeItem('token')} }to="/categories"><span> Logout </span> </Link>
           </div>
         </div>
         <PrimaryNav />
