@@ -61,7 +61,8 @@ class AddRecipeForm extends Component {
       prepmins: this.state.prepmins,
       cookmins: this.state.cookmins,
       directions: this.state.directions,
-      categories_id: this.state.categories_id,
+      // categories_id: this.state.categories_id,
+      categories_id: parseInt(this.state.categories_id, 10),
       ingredients: this.state.ingredients,
       servings: this.state.servings,
       ver: "0",
@@ -77,7 +78,7 @@ console.log('recipeData', recipeData);
     postRecipe(recipeData, token.token)
 
       .then((res) => {
-        history.push('/recipes')
+        history.push('/categories')
       }
       )
       .catch(err => console.log('DB error: ' + err));

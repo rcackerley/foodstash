@@ -30,9 +30,10 @@ let postRecipeToDB = (recipe, userId) => {
   console.log(recipe.title, recipe.ver, recipe.prepmins, recipe.cookmins, recipe.descr, userId )
   return (
     db.query(`INSERT INTO "public"."recipes"("title", "version", "prepmins", "cookmins",
-    "description", "user_id", "ingredients", "directions", "servings", "derived_id", "image_url", tag)
+    "description", "user_id", "ingredients", "directions", "servings", "derived_id", "image_url", "categories_id", tag)
     VALUES('${recipe.title}',${recipe.ver}, ${recipe.prepmins}, ${recipe.cookmins}, '${recipe.descr}', ${userId},
-    '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings}, '${null}', '${recipe.image_url}', 'none')
+    '${recipe.ingredients}', '${recipe.directions}', ${recipe.servings}, '${null}', '${recipe.image_url}', '${recipe.categories_id}',
+     'none')
     RETURNING "id", "title", "version", "derived_id", "prepmins", "cookmins",
     "description", "tag", "user_id", "ingredients", "directions", "servings", "image_url";`)
   )
@@ -76,9 +77,18 @@ let getAllIngredients = (req, res) =>
   db.query(`SELECT * from ingredients`)
     .then(ingredients => res.send(ingredients))
 
+let getRecipesByCategoriesQuery = (catId) =>
+  db.query(`SELECT * from recipes WHERE categories_id  = ${catId};`)
+
+let getRecipesByCategories = async (req, res) => {
+  console.dir(req.headers);
+  if (!req.headers || !req.headers.id) throw new Error('please send an id');
+  res.send(await getRecipesByCategoriesQuery(req.headers.id))
+}
+
 let getSearchedRecipes = (queryString) => {
   let queryBuilder = `SELECT * from recipes WHERE id IN (`
-  queryString.forEach(number => queryBuilder = queryBuilder + number + ',');
+  queryString.forEach(id => queryBuilder = queryBuilder + id + ',');
   queryBuilder = queryBuilder.slice(0, -1);
   queryBuilder += ');';
   console.log(queryBuilder)
@@ -109,8 +119,6 @@ let getUserDataQuery = (userId) =>
 let getUserData = async (req, res) => {
   let token = req.headers.authorization;
   let result = tokenValidator(token);
-  console.log('yo');
-  console.log(result);
   let userData = await getUserDataQuery(result.userId);
   res.send(userData);
 }
@@ -175,27 +183,27 @@ let postCookBook = (req, res) => {
   )
 }
 
-let getRecipeByID = (req, res) => {
-  let id = req.headers.id;
-  // console.log(id);
-  getRecipeFromDB(id)
-  .then(response => res.send(response))
-  .catch(err => res.send(err))
+let getRecipeByID = async (req, res) => {
+  if (!req.headers || !req.headers.id) throw new Error('please send an id');
+  res.send(await getRecipeFromDB(req.headers.id))
+  
 }
 
-let getIdsFromLibrary = (req, res) => {
-  let queryString = [];
-  let library = req.body.searchLibrary;
-  library.map(item => queryString.push(item.id))
-  getSearchedRecipes(queryString)
-  .then(response => res.send(response))
-  .catch(err => res.send(err))
+let searchRecipes = async (req, res) => {
+  try {
+    let recipes = await db.query(`SELECT * from recipes;`);
+    let searchString = req.body.searchString.slice(1);
+    res.send((searchString === "")? recipes : recipes.filter(c => c.title.toLowerCase().match(searchString.toLowerCase())));
+  } catch (error) {
+    throw new Error('this is not working out for us');
+  }
 }
 
 //Middleware
 app.use(bodyParser.json());
 app.get('/get-user', getUserData)
 app.get('/all-categories', getAllCategories)
+app.get('/recipe-by-category', getRecipesByCategories)
 app.get('/all-ingredients', getAllIngredients)
 app.get('/recipes', getMyRecipes)
 app.post('/recipes', postRecipe)
@@ -206,7 +214,11 @@ app.post('/users', postUser)
 app.post('/signin', signIn)
 app.get('/recipe', getRecipeByID)
 app.get('/search', searchTerms)
-app.post('/search-recipes', getIdsFromLibrary)
+app.post('/search-recipes', searchRecipes)
 
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
 
 app.listen(3000, () => console.log('Recipes running on 3000'))

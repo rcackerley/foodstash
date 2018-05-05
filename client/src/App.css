@@ -265,7 +265,7 @@ body {
 }
 .r-screen-info-columns {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .r-screen-info-columns div {
   display: flex;
@@ -296,6 +296,7 @@ body {
 }
 .tab-container {
   background-color: #f0f0f0;
+  padding: 0 .5em;
 }
 .tab-container ol{
   margin: 0;
