@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const signature = '@!3$%%^&1ed^&*!l@#^&***()R0441';
 const bodyParser = require('body-parser');
+const port = process.env.PORT || 3000;
 
 //db queries
 let createUser = (user) =>
@@ -201,6 +202,9 @@ let searchRecipes = async (req, res) => {
 
 //Middleware
 app.use(bodyParser.json());
+app.get('/', function (req, res) {
+  res.send("Welcome to NodeJS app on Heroku!");
+});
 app.get('/get-user', getUserData)
 app.get('/all-categories', getAllCategories)
 app.get('/recipe-by-category', getRecipesByCategories)
@@ -221,4 +225,4 @@ app.use(function (err, req, res, next) {
   res.status(500).send('Something broke!')
 })
 
-app.listen(3000, () => console.log('Recipes running on 3000'))
+app.listen(port, () => console.log('Recipes running on 3000'))
