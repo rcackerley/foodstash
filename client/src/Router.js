@@ -19,6 +19,7 @@ let Router = () =>
       <HashRouter>
         <Switch>
             <Route path="/register" component={RegisterScreen} />
+            <Route path="/" component={LoginScreen} />
             <Route path="/login" component={LoginScreen} />
             <PrivateRoute path="/ingredients" component={IngredientListScreen}/>
             <PrivateRoute path="/recipes/:type/:id" exact component={RecipeListScreen} />
