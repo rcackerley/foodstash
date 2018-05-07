@@ -8,6 +8,7 @@
 
 ## Table of Contents
 - [Setup](#setup)
+- [Demo](#demo)
 - [Features](#features)
 - [Libraries/APIs](#external)
 - [Todos](#todos)
@@ -34,6 +35,9 @@ $ yarn install
 $ node server.js
 
 ```
+## Demo
+* Create a dummy account to browse the app
+* Or use email: test@test.com / password: test
 
 ## Features
 
