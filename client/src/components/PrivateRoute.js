@@ -14,23 +14,3 @@ let PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 export default PrivateRoute;
-
-
-// email
-// :
-// "kyle@kyle.com"
-// firstname
-// :
-// "Kyle"
-// id
-// :
-// 4
-// lastname
-// :
-// "Booth"
-// password
-// :
-// "ABC"
-// username
-// :
-// "kyle"
