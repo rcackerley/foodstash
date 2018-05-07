@@ -72,7 +72,7 @@ $ node server.js
 * [Robby](https://github.com/rcackerley)
 * [James](https://github.com/jamesnmcdowell)
 * [Chris](https://github.com/chrisgoodell)
-* [Node](https://github.com/kbooth1000)
+* [Kyle](https://github.com/kbooth1000)
 
 ---
 
