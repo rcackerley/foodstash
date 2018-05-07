@@ -202,6 +202,7 @@ let searchRecipes = async (req, res) => {
 
 //Middleware
 app.use(bodyParser.json());
+app.use(express.static('build'));
 app.get('/', function (req, res) {
   res.send("Welcome to NodeJS app on Heroku!");
 });
@@ -225,4 +226,4 @@ app.use(function (err, req, res, next) {
   res.status(500).send('Something broke!')
 })
 
-app.listen(port, () => console.log('Recipes running on 3000'))
+app.listen(port, () => console.log(`Recipes running on ${port}`))
